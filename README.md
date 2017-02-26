@@ -6,6 +6,16 @@ Minimalistic persistence API
 ### Configuração - Datasource
 
 - Json
+```json
+{
+  "name": "Nome DS",
+  "driver": "NomeClasseDoDriver",
+  "configs": {
+    ... Configurações do Driver ...
+  }
+}
+```
+
 - Array PHP
 
 ### Componentes
@@ -16,7 +26,7 @@ $repo = new Repository("nome-ds");
 $repo->query("nome_entidade")
     ->col("col_a", "col_b")
     ->where(Where::createExample($arr))
-    ->orderBy("col_a")
+    ->order("col_a")
     ->limit(1, 100)
     ->execute();
 ```
