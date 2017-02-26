@@ -8,7 +8,7 @@
 
 namespace Softbox\Persistence\Core;
 
-class PersistenceSerivce {
+class PersistenceService {
 
     /**
      * @param $sql

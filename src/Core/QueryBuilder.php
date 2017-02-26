@@ -17,7 +17,7 @@ class QueryBuilder implements Queryable {
 
     private $where;
 
-    public function __construct(PersistenceSerivce $pserv, $entity) {
+    public function __construct(PersistenceService $pserv, $entity) {
         $this->entity = $entity;
         $this->pserv = $pserv;
     }
