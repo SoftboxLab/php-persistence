@@ -19,8 +19,6 @@ class SQLBuilder implements Builder {
             Filter::class    => new SQLWhereBuilder($this),
             Condition::class => new SQLConditionBuilder($this),
             Select::class    => new SQLSelectBuilder($this),
-            //Conjuntion::class => new SQLConditionsBuilder("AND", $this),
-            //Disjuntion::class => new SQLConditionsBuilder("OR", $this),
         ];
     }
 
@@ -31,7 +29,7 @@ class SQLBuilder implements Builder {
         } else if ($value instanceof Buildable) {
             $className = get_class($value);
 
-            echo "\n" . $className;
+            //echo "\n" . $className;
 
             if (isset($this->builders[$className])) {
                 return $this->builders[$className]->build($value);

@@ -17,11 +17,12 @@ class Filter implements Buildable {
     }
 
     private function add($col, $op, $value = null) {
-        $param = ":p_" . count($this->params);
+        $param = "p_" . count($this->params);
 
         $this->params[$param] = $value;
 
-        $condition = new Condition($col, $op, $value === null ?  null : $param);
+        // TODO avaliar o ':' quando for NoSQL
+        $condition = new Condition($col, $op, $value === null ?  null : ":" . $param);
 
         if ($this->predicate != null) {
             $method = $this->method;

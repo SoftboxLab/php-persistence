@@ -23,6 +23,6 @@ class SQLWhereBuilder implements Builder {
             $buffer = $this->builder->build($value->getPredicate());
         }
 
-        return "WHERE " . (empty($buffer) ? "1 = 1" : $buffer);
+        return " WHERE " . (empty($buffer) ? "1 = 1" : $buffer);
     }
 }

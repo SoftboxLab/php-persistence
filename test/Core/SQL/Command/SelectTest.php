@@ -2,6 +2,7 @@
 
 namespace Softbox\Persistence\Core\SQL\Command\Test;
 
+use Softbox\Persistence\Core\Filter;
 use Softbox\Persistence\Core\PersistenceService;
 use Softbox\Persistence\Core\ResultSet;
 use Softbox\Persistence\Core\SQL\Builder\SQLBuilder;
@@ -71,5 +72,24 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
 
         $select->projection("a", "b");
         $this->assertEquals("SELECT a, b FROM teste", $select->build(new SQLBuilder()));
+    }
+
+    public function testGetParams() {
+        $select = new Select($this->getPS(), 'teste');
+
+        $select->projection("a", "b");
+
+        $filter = new Filter();
+        $filter->eq("a", 1234);
+        $filter->eq("b", 5678);
+
+        $select->filter($filter);
+        $this->assertEquals("SELECT a, b FROM teste WHERE b = :p_1 AND a = :p_0", $select->build(new SQLBuilder()));
+
+        $params = $filter->getParams();
+
+        $this->assertCount(2, $params);
+        $this->assertEquals(1234, $params["p_0"]);
+        $this->assertEquals(5678, $params["p_1"]);
     }
 }

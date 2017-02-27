@@ -8,6 +8,7 @@
 
 namespace Softbox\Persistence\Core\SQL\Builder\Test;
 
+use Softbox\Persistence\Core\Filter;
 use Softbox\Persistence\Core\PersistenceService;
 use Softbox\Persistence\Core\ResultSet;
 use Softbox\Persistence\Core\SQL\Builder\SQLBuilder;
@@ -78,5 +79,24 @@ class SQLSelectBuilderTest extends \PHPUnit_Framework_TestCase {
 
         $this->expectException(\BadMethodCallException::class);
         $select->order("d desc");
+    }
+
+    public function testParams() {
+        $sqlSelectBuilder = new SQLSelectBuilder(new SQLBuilder());
+
+        $select = new Select($this->getPS(), "teste");
+        $select->projection("a");
+
+        $filter = new Filter();
+        $filter->eq("a", 123);
+
+        $select->filter($filter);
+        $this->assertEquals("SELECT a FROM teste WHERE a = :p_0", $select->build(new SQLBuilder()));
+
+        $filter->eq("b", 123);
+        $this->assertEquals("SELECT a FROM teste WHERE b = :p_1 AND a = :p_0", $select->build(new SQLBuilder()));
+
+        $filter->setOr()->eq("c", 123);
+        $this->assertEquals("SELECT a FROM teste WHERE c = :p_2 OR b = :p_1 AND a = :p_0", $select->build(new SQLBuilder()));
     }
 }
