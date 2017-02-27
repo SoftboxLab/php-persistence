@@ -1,0 +1,19 @@
+{
+    "name": "tarcisio/php-persistence",
+    "description": "PHP Persistence API",
+    "authors": [
+        {
+            "name": "Tarcísio Júnior",
+            "email": "tarcisio@softbox.com.br"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Softbox\\Persistence\\": "src"
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "5.5.*"
+    }
+}

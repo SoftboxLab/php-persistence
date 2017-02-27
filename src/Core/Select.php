@@ -6,11 +6,10 @@
  * Time: 10:34
  */
 
-namespace Softbox\Persistence\Core\SQL;
+namespace Softbox\Persistence\Core;
 
-use Softbox\Persistence\Core\Where;
 
-class Select {
+class Select implements Buildable {
     private $cols;
 
     private $entity;
@@ -87,5 +86,9 @@ class Select {
      */
     public function getRowCount() {
         return $this->rowCount;
+    }
+
+    public function build(Builder $builder) {
+        return $builder->build($this);
     }
 }

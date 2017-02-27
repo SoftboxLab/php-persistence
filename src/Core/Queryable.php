@@ -14,7 +14,7 @@ interface Queryable {
 
     public function where($where);
 
-    public function order($orders);
+    public function order(...$orders);
 
     public function limit($offset, $rowCount);
 

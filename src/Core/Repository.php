@@ -8,6 +8,12 @@
 
 namespace Softbox\Persistence\Core;
 
-class Repository {
+interface Repository {
 
+    /**
+     * @param string $entity
+     *
+     * @return Queryable
+     */
+    public function query($entity);
 }

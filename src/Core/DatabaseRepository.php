@@ -8,10 +8,15 @@
 
 namespace Softbox\Persistence\Core;
 
-class RepositoryBase implements Repository {
+class DatabaseRepository implements Repository {
 
+    /**
+     * @var PersistenceService
+     */
+    private $pserv;
 
     public function __construct() {
+        $this->pserv = new PersistenceService();
     }
 
     /**
@@ -20,6 +25,6 @@ class RepositoryBase implements Repository {
      * @return Queryable
      */
     public function query($entity) {
-        return new QueryBuilder();
+        return new SQLSelectBuilder($this->pserv, $entity);
     }
 }

@@ -8,6 +8,7 @@
 
 namespace Softbox\Persistence\Core;
 
-class Builder {
+interface Builder {
 
+    public function build($value);
 }
