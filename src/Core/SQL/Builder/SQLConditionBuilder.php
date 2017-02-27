@@ -23,11 +23,11 @@ class SQLConditionBuilder implements Builder {
 
 
         if ($value->getAnd()) {
-            $buffer =  $this->builder->build($value->getAnd()) . " AND ". $buffer;
+            $buffer .= " AND " . $this->builder->build($value->getAnd());
         }
 
         if ($value->getOr()) {
-            $buffer = $this->builder->build($value->getOr()) . " OR " . $buffer;
+            $buffer .= " OR " . $this->builder->build($value->getOr());
         }
 
         return $buffer;

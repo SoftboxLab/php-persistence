@@ -35,4 +35,8 @@ class PersistenceService {
             ]
         ];
     }
+
+    public function existsTable($tableName) {
+        return $tableName == 'teste';
+    }
 }

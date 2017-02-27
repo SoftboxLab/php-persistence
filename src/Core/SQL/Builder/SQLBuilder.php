@@ -4,6 +4,10 @@ namespace Softbox\Persistence\Core\SQL\Builder;
 
 
 
+use Softbox\Persistence\Core\Buildable;
+use Softbox\Persistence\Core\Builder;
+use Softbox\Persistence\Core\Condition;
+use Softbox\Persistence\Core\Filter;
 use Softbox\Persistence\Core\SQL\Command\Select;
 
 class SQLBuilder implements Builder {

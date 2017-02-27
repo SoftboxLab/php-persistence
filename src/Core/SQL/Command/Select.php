@@ -2,23 +2,25 @@
 
 namespace Softbox\Persistence\Core\SQL\Command;
 
+use Softbox\Persistence\Core\Buildable;
 use Softbox\Persistence\Core\Filter;
 use Softbox\Persistence\Core\PersistenceService;
 use Softbox\Persistence\Core\Projection;
-use Softbox\Persistence\Core\Queryable;
 use Softbox\Persistence\Core\ResultSet;
 use Softbox\Persistence\Core\SQL\Builder\SQLBuilder;
 
-class Select extends Projection {
+class Select extends Projection implements Buildable {
     /**
      * @var PersistenceService
      */
     private $pserv;
 
-    public function __construct(PersistenceService $pserv, $entity, $cols = null) {
-        parent::__construct($entity, $cols);
+    public function __construct(PersistenceService $pserv, $entity) {
+        parent::__construct($entity);
 
         $this->pserv = $pserv;
+
+        $this->checkTable();
     }
 
     /**
@@ -44,6 +46,12 @@ class Select extends Projection {
             throw new \BadMethodCallException("Invalide cols.");
         }
 
-        return parent::projection($cols);
+        return parent::projection(...$cols);
+    }
+
+    private function checkTable() {
+        if (!$this->pserv->existsTable($this->getEntity())) {
+            throw new \BadMethodCallException("Table '" . $this->getEntity() . "' does not exists.'");
+        }
     }
 }
