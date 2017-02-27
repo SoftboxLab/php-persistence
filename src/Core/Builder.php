@@ -2,12 +2,12 @@
 /**
  * Created by PhpStorm.
  * User: tarcisio
- * Date: 26/02/17
- * Time: 15:44
+ * Date: 27/02/17
+ * Time: 00:12
  */
 
 namespace Softbox\Persistence\Core;
 
-class Repository {
+class Builder {
 
 }
