@@ -1,22 +1,40 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 26/02/17
- * Time: 10:34
- */
 
 namespace Softbox\Persistence\Core;
 
 interface Queryable {
 
-    public function col(...$cols);
+    /**
+     * @param array ...$cols
+     *
+     * @return Queryable
+     */
+    public function projection(...$cols);
 
-    public function where($where);
+    /**
+     * @param $filter
+     *
+     * @return Queryable
+     */
+    public function filter($filter);
 
+    /**
+     * @param array ...$orders
+     *
+     * @return Queryable
+     */
     public function order(...$orders);
 
+    /**
+     * @param $offset
+     * @param $rowCount
+     *
+     * @return Queryable
+     */
     public function limit($offset, $rowCount);
 
+    /**
+     * @return Queryable
+     */
     public function execute();
 }

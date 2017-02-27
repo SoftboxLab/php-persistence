@@ -9,12 +9,12 @@
 namespace Softbox\Persistence\Core;
 
 
-class Select implements Buildable {
+abstract class Projection implements Buildable, Queryable {
     private $cols;
 
     private $entity;
 
-    private $where = null;
+    private $filter = null;
 
     private $orderBy = null;
 
@@ -27,8 +27,8 @@ class Select implements Buildable {
         $this->entity = $entity;
     }
 
-    public function setWhere(Where $where) {
-        $this->where = $where;
+    public function setFilter(Filter $filter) {
+        $this->filter = $filter;
 
         return $this;
     }
@@ -63,8 +63,8 @@ class Select implements Buildable {
     /**
      * @return null
      */
-    public function getWhere() {
-        return $this->where;
+    public function getFilter() {
+        return $this->filter;
     }
 
     /**
@@ -91,4 +91,42 @@ class Select implements Buildable {
     public function build(Builder $builder) {
         return $builder->build($this);
     }
+
+    /**
+     * @param array ...$cols
+     *
+     * @return Queryable
+     */
+    public function projection(...$cols) {
+        $this->cols = $cols;
+
+        return $this;
+    }
+
+    /**
+     * @param $filter
+     *
+     * @return Queryable
+     */
+    public function filter($filter) {
+        $this->setFilter($filter);
+
+        return $this;
+    }
+
+    /**
+     * @param array ...$orders
+     *
+     * @return Queryable
+     */
+    public function order(...$orders) {
+        $this->setOrderBy($orders);
+
+        return $this;
+    }
+
+    /**
+     * @return Queryable
+     */
+    public abstract function execute();
 }

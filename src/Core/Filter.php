@@ -1,23 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 26/02/17
- * Time: 15:47
- */
+
 
 namespace Softbox\Persistence\Core;
 
-class Where implements Buildable {
+class Filter implements Buildable {
     private $params = [];
 
-    private $conditions = [];
+    /**
+     * @var Predicate
+     */
+    private $predicate = null;
+    
+    private $method = "setAnd";
 
     public function __construct() {
-    }
-
-    public function params() {
-
     }
 
     private function add($col, $op, $value = null) {
@@ -25,7 +21,15 @@ class Where implements Buildable {
 
         $this->params[$param] = $value;
 
-        $this->conditions[] = new Condition($col, $op, $value === null ?  null : $param);
+        $condition = new Condition($col, $op, $value === null ?  null : $param);
+
+        if ($this->predicate != null) {
+            $method = $this->method;
+
+            $condition->$method($this->predicate);
+        }
+
+        $this->predicate = $condition;
     }
 
     public function eq($col, $value = null) {
@@ -88,15 +92,27 @@ class Where implements Buildable {
         return $this;
     }
 
-    public function addOR() {
-        //$this->add($col, "=", $value);
+    public function setAnd() {
+        $this->method = "setAnd";
+
+        return $this;
     }
 
-    public function getConditions() {
-        return $this->conditions;
+    public function setOr() {
+        $this->method = "setOr";
+
+        return $this;
+    }
+
+    public function getPredicate() {
+        return $this->predicate;
     }
 
     public function build(Builder $builder) {
         return $builder->build($this);
+    }
+
+    public function getParams() {
+        return $this->params;
     }
 }

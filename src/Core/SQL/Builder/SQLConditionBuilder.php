@@ -1,6 +1,6 @@
 <?php
 
-namespace Softbox\Persistence\Core\SQL;
+namespace Softbox\Persistence\Core\SQL\Builder;
 
 use Softbox\Persistence\Core\Builder;
 use Softbox\Persistence\Core\Condition;
@@ -17,8 +17,19 @@ class SQLConditionBuilder implements Builder {
             throw new \BadMethodCallException("Supply a Condition value.");
         }
 
-        return $this->builder->build($value->getExpressionA())
+        $buffer = $this->builder->build($value->getExpressionA())
                . " " . $value->getOperator() . " "
                . $this->builder->build($value->getExpressionB());
+
+
+        if ($value->getAnd()) {
+            $buffer =  $this->builder->build($value->getAnd()) . " AND ". $buffer;
+        }
+
+        if ($value->getOr()) {
+            $buffer = $this->builder->build($value->getOr()) . " OR " . $buffer;
+        }
+
+        return $buffer;
     }
 }

@@ -8,6 +8,8 @@
 
 namespace Softbox\Persistence\Core;
 
+use Softbox\Persistence\Core\SQL\Command\Select;
+
 class DatabaseRepository implements Repository {
 
     /**
@@ -25,6 +27,6 @@ class DatabaseRepository implements Repository {
      * @return Queryable
      */
     public function query($entity) {
-        return new SQLSelectBuilder($this->pserv, $entity);
+        return new Select($this->pserv, $entity);
     }
 }

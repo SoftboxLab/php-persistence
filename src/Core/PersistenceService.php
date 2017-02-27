@@ -10,13 +10,29 @@ namespace Softbox\Persistence\Core;
 
 class PersistenceService {
 
-    /**
-     * @param $sql
-     * @param $params
-     *
-     * @return ResultSet
-     */
-    public function query($sql, $params) {
+    public function __construct() {
+    }
 
+    public function query($sql, $params = []) {
+        return [];
+    }
+
+    public function getMetaData($table) {
+        return [
+            "a" => [
+                "size" => 10,
+                "type" => "int"
+            ],
+
+            "b" => [
+                "size" => 10,
+                "type" => "varchar"
+            ],
+
+            "c" => [
+                "size" => 10,
+                "type" => "varchar"
+            ]
+        ];
     }
 }

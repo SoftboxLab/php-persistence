@@ -1,9 +1,9 @@
 <?php
 
-namespace Softbox\Persistence\Core\SQL;
+namespace Softbox\Persistence\Core\SQL\Builder;
 
 use Softbox\Persistence\Core\Builder;
-use Softbox\Persistence\Core\Select;
+use Softbox\Persistence\Core\Projection;
 
 class SQLSelectBuilder implements Builder {
     private $builder;
@@ -12,7 +12,7 @@ class SQLSelectBuilder implements Builder {
         $this->builder = $builder;
     }
 
-    private function buildCols(Select $select) {
+    private function buildCols(Projection $select) {
         $buffer = "*";
 
         $cols = ["a" => true];
@@ -32,7 +32,7 @@ class SQLSelectBuilder implements Builder {
         return $buffer;
     }
 
-    private function buildOrderBy(Select $select) {
+    private function buildOrderBy(Projection $select) {
         if ($select->getOrderBy() === null) {
             return "";
         }
@@ -40,7 +40,7 @@ class SQLSelectBuilder implements Builder {
         return " ORDER BY " . $select->getOrderBy();
     }
 
-    private function buildLimit(Select $select) {
+    private function buildLimit(Projection $select) {
         if ($select->getOffset() === null) {
             return "";
         }
@@ -49,14 +49,14 @@ class SQLSelectBuilder implements Builder {
     }
 
     public function build($value) {
-        if (!($value instanceof Select)) {
+        if (!($value instanceof Projection)) {
             throw new \BadMethodCallException("Supply a Select value.");
         }
 
         return sprintf("SELECT %s FROM %s %s %s %s",
             $this->buildCols($value),
             $value->getEntity(),
-            $this->builder->build($value->getWhere()),
+            $this->builder->build($value->getFilter()),
             $this->buildOrderBy($value),
             $this->buildLimit($value));
     }

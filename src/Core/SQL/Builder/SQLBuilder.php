@@ -1,9 +1,10 @@
 <?php
 
-namespace Softbox\Persistence\Core\SQL;
+namespace Softbox\Persistence\Core\SQL\Builder;
 
-use Softbox\Persistence\Core\Buildable;
-use Softbox\Persistence\Core\Builder;
+
+
+use Softbox\Persistence\Core\SQL\Command\Select;
 
 class SQLBuilder implements Builder {
 
@@ -11,9 +12,11 @@ class SQLBuilder implements Builder {
 
     public function __construct() {
         $this->builders = [
-            'Softbox\Persistence\Core\Where'     => new SQLWhereBuilder($this),
-            'Softbox\Persistence\Core\Condition' => new SQLConditionBuilder($this),
-            'Softbox\Persistence\Core\Select'    => new SQLSelectBuilder($this),
+            Filter::class    => new SQLWhereBuilder($this),
+            Condition::class => new SQLConditionBuilder($this),
+            Select::class    => new SQLSelectBuilder($this),
+            //Conjuntion::class => new SQLConditionsBuilder("AND", $this),
+            //Disjuntion::class => new SQLConditionsBuilder("OR", $this),
         ];
     }
 
@@ -23,6 +26,8 @@ class SQLBuilder implements Builder {
 
         } else if ($value instanceof Buildable) {
             $className = get_class($value);
+
+            echo "\n" . $className;
 
             if (isset($this->builders[$className])) {
                 return $this->builders[$className]->build($value);
