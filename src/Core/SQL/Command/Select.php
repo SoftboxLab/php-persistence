@@ -49,6 +49,34 @@ class Select extends Projection implements Buildable {
         return parent::projection(...$cols);
     }
 
+    public function order(...$orders) {
+        $tableCols = array_keys($this->pserv->getMetaData($this->getEntity()));
+
+        foreach ($orders as &$order) {
+            $tokens = array_filter(explode(" ", $order));
+
+            if (count($tokens) == 0 || count($tokens) > 2) {
+                throw new \BadMethodCallException("Invalid strucuture of order.");
+            }
+
+            $col = $tokens[0];
+
+            $type = isset($tokens[1]) ? $tokens[1] : "ASC";
+
+            if (!in_array(strtoupper($type), ["ASC", "DESC"])) {
+                throw new \BadMethodCallException("Invalide order.");
+            }
+
+            if (!in_array(strtolower($col), $tableCols)) {
+                throw new \BadMethodCallException("Invalide col.");
+            }
+
+            $order = $col . " " . strtoupper($type);
+        }
+
+        return parent::order(...$orders);
+    }
+
     private function checkTable() {
         if (!$this->pserv->existsTable($this->getEntity())) {
             throw new \BadMethodCallException("Table '" . $this->getEntity() . "' does not exists.'");

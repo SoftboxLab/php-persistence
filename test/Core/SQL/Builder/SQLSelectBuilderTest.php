@@ -62,5 +62,21 @@ class SQLSelectBuilderTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertEquals("SELECT a FROM teste ORDER BY a DESC", $sqlSelectBuilder->build($select->order("a DESC")));
         $this->assertEquals("SELECT a FROM teste ORDER BY a DESC, b ASC", $sqlSelectBuilder->build($select->order("a DESC", "b ASC")));
+
+        $select->projection("a", "b")
+               ->order("a ASC", "b desc");
+        $this->assertEquals("SELECT a, b FROM teste ORDER BY a ASC, b DESC", $select->build(new SQLBuilder()));
+
+        $select->order("b", "a");
+        $this->assertEquals("SELECT a, b FROM teste ORDER BY b ASC, a ASC", $select->build(new SQLBuilder()));
+
+        $select->order("c");
+        $this->assertEquals("SELECT a, b FROM teste ORDER BY c ASC", $select->build(new SQLBuilder()));
+
+        $select->order("c desc");
+        $this->assertEquals("SELECT a, b FROM teste ORDER BY c DESC", $select->build(new SQLBuilder()));
+
+        $this->expectException(\BadMethodCallException::class);
+        $select->order("d desc");
     }
 }

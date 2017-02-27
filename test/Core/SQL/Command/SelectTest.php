@@ -9,12 +9,6 @@ use Softbox\Persistence\Core\SQL\Command\Select;
 
 class SelectTest extends \PHPUnit_Framework_TestCase {
 
-    public function testExecute() {
-        //$psMock = $this->getMockBuilder(PersistenceService::class)->getMock();
-
-        //$psMock->method('query')->willReturn(new ResultSet());
-    }
-
     private function getPS() {
         $psMock = $this->getMockBuilder(PersistenceService::class)->getMock();
 
@@ -72,12 +66,10 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(200, $select->getRowCount());
     }
 
-    //public function testBuild() {
-    //    $select = new Select($this->getPS(), 'teste');
-    //
-    //    $select->projection("a", "b");
-    //    $ret = $select->build(new SQLBuilder());
-    //
-    //    print_r($ret);
-    //}
+    public function testBuild() {
+        $select = new Select($this->getPS(), 'teste');
+
+        $select->projection("a", "b");
+        $this->assertEquals("SELECT a, b FROM teste", $select->build(new SQLBuilder()));
+    }
 }
