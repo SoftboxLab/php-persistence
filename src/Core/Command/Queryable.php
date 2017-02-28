@@ -1,7 +1,12 @@
 <?php
 
-namespace Softbox\Persistence\Core;
+namespace Softbox\Persistence\Core\Command;
 
+/**
+ * Interface que representa um comando de consulta no repositorio.
+ *
+ * @package Softbox\Persistence\Core
+ */
 interface Queryable {
 
     /**

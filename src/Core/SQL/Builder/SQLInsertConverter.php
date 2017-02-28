@@ -8,19 +8,19 @@
 
 namespace Softbox\Persistence\Core\SQL\Builder;
 
-use Softbox\Persistence\Core\Builder;
-use Softbox\Persistence\Core\SQL\Command\Insert;
+use Softbox\Persistence\Core\Converter;
+use Softbox\Persistence\Core\SQL\Command\InsertBase;
 
-class SQLInsertBuilder implements Builder {
-    private $builder;
+class SQLInsertConverter implements Converter {
+    private $converter;
 
-    public function __construct(Builder $builder) {
-        $this->builder = $builder;
+    public function __construct(Converter $converter) {
+        $this->converter = $converter;
     }
 
-    public function build($value) {
-        if (!($value instanceof Insert)) {
-            throw new \BadMethodCallException("Supply a Insert value.");
+    public function convert($value) {
+        if (!($value instanceof InsertBase)) {
+            throw new \BadMethodCallException("Supply a instance of " . InsertBase::class . ".");
         }
 
         $cols = array_keys($value->getTableValues());

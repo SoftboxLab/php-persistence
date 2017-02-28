@@ -10,9 +10,9 @@ namespace Softbox\Persistence\Core\SQL\Builder\Test;
 
 use Softbox\Persistence\Core\PersistenceService;
 use Softbox\Persistence\Core\ResultSet;
-use Softbox\Persistence\Core\SQL\Builder\SQLBuilder;
-use Softbox\Persistence\Core\SQL\Builder\SQLInsertBuilder;
-use Softbox\Persistence\Core\SQL\Command\Insert;
+use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
+use Softbox\Persistence\Core\SQL\Builder\SQLInsertConverter;
+use Softbox\Persistence\Core\SQL\Command\InsertBase;
 
 class SQLInsertBuilderTest extends \PHPUnit_Framework_TestCase {
     private function getPS() {
@@ -45,19 +45,19 @@ class SQLInsertBuilderTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testBuild() {
-        $sqlBuilder = new SQLInsertBuilder(new SQLBuilder());
+        $sqlBuilder = new SQLInsertConverter(new SQLConverter());
 
-        $insert = new Insert($this->getPS(), "teste");
+        $insert = new InsertBase($this->getPS(), "teste");
         $insert->val("a", 123);
         $insert->val("b", 432);
 
         $this->assertEquals("INSERT INTO teste(a, b) VALUES (:a, :b)", $insert->build($sqlBuilder));
 
-        $insert = new Insert($this->getPS(), "teste");
+        $insert = new InsertBase($this->getPS(), "teste");
         $insert->val("a", 123);
         $this->assertEquals("INSERT INTO teste(a) VALUES (:a)", $insert->build($sqlBuilder));
 
-        $insert = new Insert($this->getPS(), "teste");
+        $insert = new InsertBase($this->getPS(), "teste");
         $insert->val("a", 123);
         $insert->val("x", 987);
         $this->assertEquals("INSERT INTO teste(a) VALUES (:a)", $insert->build($sqlBuilder));

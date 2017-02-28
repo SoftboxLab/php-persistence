@@ -2,15 +2,36 @@
 
 namespace Softbox\Persistence\Core;
 
+/**
+ * Representa uma condicao de restricao qualquer. Exp A oprador Exp B.
+ *
+ * @package Softbox\Persistence\Core
+ */
 class Condition implements Predicate {
+
+    /**
+     * @var mixed
+     */
     private $expressionA;
 
+    /**
+     * @var string
+     */
     private $operator;
 
+    /**
+     * @var mixed
+     */
     private $expressionB;
 
+    /**
+     * @var Predicate
+     */
     private $predicateAnd;
 
+    /**
+     * @var Predicate
+     */
     private $predicateOr;
 
     public function __construct($expA, $operator, $expB) {
@@ -31,10 +52,6 @@ class Condition implements Predicate {
         return $this->expressionB;
     }
 
-    public function build(Builder $builder) {
-        return $builder->build($this);
-    }
-
     public function setAnd(Predicate $predicate) {
         $this->predicateAnd = $predicate;
     }
@@ -49,5 +66,9 @@ class Condition implements Predicate {
 
     public function getOr() {
         return $this->predicateOr;
+    }
+
+    public function build(Converter $builder) {
+        return $builder->convert($this);
     }
 }

@@ -88,8 +88,8 @@ abstract class Projection implements Buildable, Queryable {
         return $this->rowCount;
     }
 
-    public function build(Builder $builder) {
-        return $builder->build($this);
+    public function build(Converter $builder) {
+        return $builder->convert($this);
     }
 
     /**

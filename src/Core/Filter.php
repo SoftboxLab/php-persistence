@@ -109,8 +109,8 @@ class Filter implements Buildable {
         return $this->predicate;
     }
 
-    public function build(Builder $builder) {
-        return $builder->build($this);
+    public function build(Converter $builder) {
+        return $builder->convert($this);
     }
 
     public function getParams() {

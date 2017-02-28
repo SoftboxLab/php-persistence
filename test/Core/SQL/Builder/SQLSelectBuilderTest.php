@@ -11,9 +11,10 @@ namespace Softbox\Persistence\Core\SQL\Builder\Test;
 use Softbox\Persistence\Core\Filter;
 use Softbox\Persistence\Core\PersistenceService;
 use Softbox\Persistence\Core\ResultSet;
-use Softbox\Persistence\Core\SQL\Builder\SQLBuilder;
-use Softbox\Persistence\Core\SQL\Builder\SQLSelectBuilder;
-use Softbox\Persistence\Core\SQL\Command\Select;
+use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
+use Softbox\Persistence\Core\SQL\Builder\SQLConverterException;
+use Softbox\Persistence\Core\SQL\Builder\SQLSelectConverter;
+use Softbox\Persistence\Core\SQL\Command\SQLSelect;
 
 class SQLSelectBuilderTest extends \PHPUnit_Framework_TestCase {
 
@@ -46,58 +47,58 @@ class SQLSelectBuilderTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testBuilder() {
-        $sqlSelectBuilder = new SQLSelectBuilder(new SQLBuilder());
+        $sqlSelectBuilder = new SQLSelectConverter(new SQLConverter());
 
-        $select = new Select($this->getPS(), "teste");
+        $select = new SQLSelect($this->getPS(), "teste");
         $select->projection("a");
 
-        $this->assertEquals("SELECT a FROM teste", $sqlSelectBuilder->build($select));
-        $this->assertEquals("SELECT a, b FROM teste", $sqlSelectBuilder->build($select->projection("a", "b")));
-        $this->assertEquals("SELECT * FROM teste", $sqlSelectBuilder->build($select->projection()));
+        $this->assertEquals("SELECT a FROM teste", $sqlSelectBuilder->convert($select));
+        $this->assertEquals("SELECT a, b FROM teste", $sqlSelectBuilder->convert($select->projection("a", "b")));
+        $this->assertEquals("SELECT * FROM teste", $sqlSelectBuilder->convert($select->projection()));
     }
 
     public function testOrderBy() {
-        $sqlSelectBuilder = new SQLSelectBuilder(new SQLBuilder());
+        $sqlSelectBuilder = new SQLSelectConverter(new SQLConverter());
 
-        $select = new Select($this->getPS(), "teste");
+        $select = new SQLSelect($this->getPS(), "teste");
         $select->projection("a");
 
-        $this->assertEquals("SELECT a FROM teste ORDER BY a DESC", $sqlSelectBuilder->build($select->order("a DESC")));
-        $this->assertEquals("SELECT a FROM teste ORDER BY a DESC, b ASC", $sqlSelectBuilder->build($select->order("a DESC", "b ASC")));
+        $this->assertEquals("SELECT a FROM teste ORDER BY a DESC", $sqlSelectBuilder->convert($select->order("a DESC")));
+        $this->assertEquals("SELECT a FROM teste ORDER BY a DESC, b ASC", $sqlSelectBuilder->convert($select->order("a DESC", "b ASC")));
 
         $select->projection("a", "b")
                ->order("a ASC", "b desc");
-        $this->assertEquals("SELECT a, b FROM teste ORDER BY a ASC, b DESC", $select->build(new SQLBuilder()));
+        $this->assertEquals("SELECT a, b FROM teste ORDER BY a ASC, b DESC", $select->build(new SQLConverter()));
 
         $select->order("b", "a");
-        $this->assertEquals("SELECT a, b FROM teste ORDER BY b ASC, a ASC", $select->build(new SQLBuilder()));
+        $this->assertEquals("SELECT a, b FROM teste ORDER BY b ASC, a ASC", $select->build(new SQLConverter()));
 
         $select->order("c");
-        $this->assertEquals("SELECT a, b FROM teste ORDER BY c ASC", $select->build(new SQLBuilder()));
+        $this->assertEquals("SELECT a, b FROM teste ORDER BY c ASC", $select->build(new SQLConverter()));
 
         $select->order("c desc");
-        $this->assertEquals("SELECT a, b FROM teste ORDER BY c DESC", $select->build(new SQLBuilder()));
+        $this->assertEquals("SELECT a, b FROM teste ORDER BY c DESC", $select->build(new SQLConverter()));
 
-        $this->expectException(\BadMethodCallException::class);
+        $this->expectException(SQLConverterException::class);
         $select->order("d desc");
     }
 
     public function testParams() {
-        $sqlSelectBuilder = new SQLSelectBuilder(new SQLBuilder());
+        $sqlSelectBuilder = new SQLSelectConverter(new SQLConverter());
 
-        $select = new Select($this->getPS(), "teste");
+        $select = new SQLSelect($this->getPS(), "teste");
         $select->projection("a");
 
         $filter = new Filter();
         $filter->eq("a", 123);
 
         $select->filter($filter);
-        $this->assertEquals("SELECT a FROM teste WHERE a = :p_0", $select->build(new SQLBuilder()));
+        $this->assertEquals("SELECT a FROM teste WHERE a = :p_0", $select->build(new SQLConverter()));
 
         $filter->eq("b", 123);
-        $this->assertEquals("SELECT a FROM teste WHERE b = :p_1 AND a = :p_0", $select->build(new SQLBuilder()));
+        $this->assertEquals("SELECT a FROM teste WHERE b = :p_1 AND a = :p_0", $select->build(new SQLConverter()));
 
         $filter->setOr()->eq("c", 123);
-        $this->assertEquals("SELECT a FROM teste WHERE c = :p_2 OR b = :p_1 AND a = :p_0", $select->build(new SQLBuilder()));
+        $this->assertEquals("SELECT a FROM teste WHERE c = :p_2 OR b = :p_1 AND a = :p_0", $select->build(new SQLConverter()));
     }
 }

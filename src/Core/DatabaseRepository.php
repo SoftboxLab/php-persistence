@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 25/02/17
- * Time: 16:25
- */
 
 namespace Softbox\Persistence\Core;
 
-use Softbox\Persistence\Core\SQL\Command\Select;
+use Softbox\Persistence\Core\SQL\Command\SQLSelect;
 
 class DatabaseRepository implements Repository {
 
@@ -27,7 +21,7 @@ class DatabaseRepository implements Repository {
      * @return Queryable
      */
     public function query($entity) {
-        return new Select($this->pserv, $entity);
+        return new SQLSelect($this->pserv, $entity);
     }
 
     public function insert($entity) {

@@ -7,9 +7,14 @@ use Softbox\Persistence\Core\Filter;
 use Softbox\Persistence\Core\PersistenceService;
 use Softbox\Persistence\Core\Projection;
 use Softbox\Persistence\Core\ResultSet;
-use Softbox\Persistence\Core\SQL\Builder\SQLBuilder;
+use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
 
-class Select extends Projection implements Buildable {
+/**
+ * Classe que representa o comando SQL de SELECT.
+ *
+ * @package Softbox\Persistence\Core\SQL\Command
+ */
+class SQLSelect extends Projection implements Buildable {
     /**
      * @var PersistenceService
      */
@@ -24,10 +29,21 @@ class Select extends Projection implements Buildable {
     }
 
     /**
+     * Verifica se a tabela fornecida existe.
+     *
+     * @throws SQLException
+     */
+    private function checkTable() {
+        if (!$this->pserv->existsTable($this->getEntity())) {
+            throw new SQLException("Table '" . $this->getEntity() . "' does not exists.'");
+        }
+    }
+
+    /**
      * @return ResultSet
      */
     public function execute() {
-        $sql = $this->build(new SQLBuilder());
+        $sql = $this->build(new SQLConverter());
 
         return $this->pserv->query($sql, $this->getParams());
     }
@@ -43,7 +59,7 @@ class Select extends Projection implements Buildable {
         $tableCols = array_keys($this->pserv->getMetaData($this->getEntity()));
 
         if (count(array_intersect($tableCols, $cols)) != count($cols)) {
-            throw new \BadMethodCallException("Invalide cols.");
+            throw new SQLException("There is invalid cols on projection.");
         }
 
         return parent::projection(...$cols);
@@ -56,7 +72,7 @@ class Select extends Projection implements Buildable {
             $tokens = array_filter(explode(" ", $order));
 
             if (count($tokens) == 0 || count($tokens) > 2) {
-                throw new \BadMethodCallException("Invalid strucuture of order.");
+                throw new SQLException("Invalid strucuture of order: $order.");
             }
 
             $col = $tokens[0];
@@ -64,22 +80,16 @@ class Select extends Projection implements Buildable {
             $type = isset($tokens[1]) ? $tokens[1] : "ASC";
 
             if (!in_array(strtoupper($type), ["ASC", "DESC"])) {
-                throw new \BadMethodCallException("Invalide order.");
+                throw new SQLException("Invalide order.");
             }
 
             if (!in_array(strtolower($col), $tableCols)) {
-                throw new \BadMethodCallException("Invalide col.");
+                throw new SQLException("Invalide column supplied for order: $col");
             }
 
             $order = $col . " " . strtoupper($type);
         }
 
         return parent::order(...$orders);
-    }
-
-    private function checkTable() {
-        if (!$this->pserv->existsTable($this->getEntity())) {
-            throw new \BadMethodCallException("Table '" . $this->getEntity() . "' does not exists.'");
-        }
     }
 }

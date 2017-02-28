@@ -5,8 +5,8 @@ namespace Softbox\Persistence\Core\SQL\Command\Test;
 use Softbox\Persistence\Core\Filter;
 use Softbox\Persistence\Core\PersistenceService;
 use Softbox\Persistence\Core\ResultSet;
-use Softbox\Persistence\Core\SQL\Builder\SQLBuilder;
-use Softbox\Persistence\Core\SQL\Command\Select;
+use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
+use Softbox\Persistence\Core\SQL\Command\SQLSelect;
 
 class SelectTest extends \PHPUnit_Framework_TestCase {
 
@@ -41,16 +41,16 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
     public function testConstrutor() {
         $psMock = $this->getPS();
 
-        $select = new Select($psMock, 'teste');
+        $select = new SQLSelect($psMock, 'teste');
 
         $this->assertEquals("teste", $select->getEntity());
         $this->expectException(\BadMethodCallException::class);
 
-        new Select($psMock, 'teste_abc');
+        new SQLSelect($psMock, 'teste_abc');
     }
 
     public function testProjection() {
-        $select = new Select($this->getPS(), 'teste');
+        $select = new SQLSelect($this->getPS(), 'teste');
 
         $this->assertEquals($select, $select->projection("a", "b", "c"));
         $this->assertCount(3, $select->getCols());
@@ -59,7 +59,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testLimit() {
-        $select = new Select($this->getPS(), 'teste');
+        $select = new SQLSelect($this->getPS(), 'teste');
 
         $this->assertEquals($select, $select->projection("a", "b", "c"));
         $this->assertEquals($select, $select->limit(12, 200));
@@ -68,14 +68,14 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testBuild() {
-        $select = new Select($this->getPS(), 'teste');
+        $select = new SQLSelect($this->getPS(), 'teste');
 
         $select->projection("a", "b");
-        $this->assertEquals("SELECT a, b FROM teste", $select->build(new SQLBuilder()));
+        $this->assertEquals("SELECT a, b FROM teste", $select->build(new SQLConverter()));
     }
 
     public function testGetParams() {
-        $select = new Select($this->getPS(), 'teste');
+        $select = new SQLSelect($this->getPS(), 'teste');
 
         $select->projection("a", "b");
 
@@ -84,7 +84,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
         $filter->eq("b", 5678);
 
         $select->filter($filter);
-        $this->assertEquals("SELECT a, b FROM teste WHERE b = :p_1 AND a = :p_0", $select->build(new SQLBuilder()));
+        $this->assertEquals("SELECT a, b FROM teste WHERE b = :p_1 AND a = :p_0", $select->build(new SQLConverter()));
 
         $params = $filter->getParams();
 

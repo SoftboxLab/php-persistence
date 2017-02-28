@@ -43,4 +43,8 @@ class PersistenceService {
     public function existsTable($tableName) {
         return $tableName == 'teste';
     }
+
+    public function exec($sql, $values = []) {
+        return $values;
+    }
 }

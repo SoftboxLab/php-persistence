@@ -9,7 +9,7 @@
 namespace Softbox\Persistence\Core;
 
 
-abstract class Insert implements Buildable {
+abstract class InsertBase implements Buildable {
     private $entity;
 
     private $values = [];
@@ -18,8 +18,8 @@ abstract class Insert implements Buildable {
         $this->entity = $entity;
     }
 
-    public function build(Builder $builder) {
-        return $builder->build($this);
+    public function build(Converter $builder) {
+        return $builder->convert($this);
     }
 
     /**

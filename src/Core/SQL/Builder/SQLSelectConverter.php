@@ -2,14 +2,14 @@
 
 namespace Softbox\Persistence\Core\SQL\Builder;
 
-use Softbox\Persistence\Core\Builder;
+use Softbox\Persistence\Core\Converter;
 use Softbox\Persistence\Core\Projection;
 
-class SQLSelectBuilder implements Builder {
-    private $builder;
+class SQLSelectConverter implements Converter {
+    private $converter;
 
-    public function __construct(Builder $builder) {
-        $this->builder = $builder;
+    public function __construct(Converter $converter) {
+        $this->converter = $converter;
     }
 
     private function buildCols(Projection $select) {
@@ -45,12 +45,12 @@ class SQLSelectBuilder implements Builder {
         if ($select->getFilter() === null) {
             return "";
         }
-        return $this->builder->build($select->getFilter());
+        return $this->converter->convert($select->getFilter());
     }
 
-    public function build($value) {
+    public function convert($value) {
         if (!($value instanceof Projection)) {
-            throw new \BadMethodCallException("Supply a Select value.");
+            throw new SQLConverterException("Supply a instance of " . Projection::class . ".");
         }
 
         return sprintf("SELECT %s FROM %s%s%s%s",
