@@ -5,6 +5,7 @@ namespace Softbox\Persistence\Core;
 use Softbox\Persistence\Core\Command\Queryable;
 
 abstract class Projection implements Buildable, Queryable {
+
     private $cols;
 
     private $entity;

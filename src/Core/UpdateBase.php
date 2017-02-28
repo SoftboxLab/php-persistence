@@ -5,36 +5,36 @@ namespace Softbox\Persistence\Core;
 use Softbox\Persistence\Core\Command\Updatable;
 
 /**
- * Classe base para o compando de update de dados.
+ * Base class to the update command
  *
  * @package Softbox\Persistence\Core
  */
 abstract class UpdateBase implements Buildable, Updatable {
 
     /**
-     * Nome da entidade que sera atualizada.
-     * @var string
+     * @var string Name of the entity that will be updated.
      */
     private $entity;
 
     /**
-     * Condicao de filtro.
-     * @var Filter
+     * @var Filter The filter condition
      */
     private $filter = null;
 
     /**
-     * Quantidade maxima de registros a serem atualizados.
-     * @var int
+     * @var int Max number of rows that will be updated
      */
     private $rowCount = null;
 
     /**
-     * Novos valores.
-     * @var array
+     * @var array new values
      */
     private $values = [];
 
+    /**
+     * UpdateBase constructor.
+     * @param $entity
+     */
     public function __construct($entity) {
         $this->entity = $entity;
     }

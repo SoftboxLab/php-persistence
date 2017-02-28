@@ -3,12 +3,17 @@
 namespace Softbox\Persistence\Core;
 
 class Order {
-    const ASC = "ASC";
-
+    const ASC  = "ASC";
     const DESC = "DESC";
 
+    /**
+     * @var array
+     */
     private $orders = [];
 
+    /**
+     * Order constructor.
+     */
     public function __construct() {
     }
 

@@ -1,19 +1,23 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 27/02/17
- * Time: 20:40
- */
 
 namespace Softbox\Persistence\Core;
 
-
 abstract class InsertBase implements Buildable {
+
+    /**
+     * @var
+     */
     private $entity;
 
+    /**
+     * @var array
+     */
     private $values = [];
 
+    /**
+     * InsertBase constructor.
+     * @param $entity
+     */
     public function __construct($entity) {
         $this->entity = $entity;
     }

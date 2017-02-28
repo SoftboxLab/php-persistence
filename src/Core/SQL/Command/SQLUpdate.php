@@ -8,33 +8,36 @@ use Softbox\Persistence\Core\SQL\PersistenceService;
 use Softbox\Persistence\Core\UpdateBase;
 
 /**
- * Classe que representa o comando de UPDATE em banco de dados.
+ * Class that represents the UPDATE SQL command
  *
  * @package Softbox\Persistence\Core\SQL\Command
  */
 class SQLUpdate extends UpdateBase implements Buildable {
 
     /**
-     * Servico de persistencia no banco de dados.
      * @var PersistenceService
      */
-    private $pserv;
+    private $persistence;
 
-    public function __construct(PersistenceService $pserv, $entity) {
+    /**
+     * SQLUpdate constructor.
+     *
+     * @param PersistenceService $persistence
+     * @param $entity
+     */
+    public function __construct(PersistenceService $persistence, $entity) {
         parent::__construct($entity);
-
-        $this->pserv = $pserv;
-
+        $this->persistence = $persistence;
         $this->checkTable();
     }
 
     /**
-     * Verifica se a tabela fornecida existe.
+     * Check if the given table exists
      *
      * @throws SQLException
      */
     private function checkTable() {
-        if (!$this->pserv->existsTable($this->getEntity())) {
+        if (!$this->persistence->existsTable($this->getEntity())) {
             throw new SQLException("Table '" . $this->getEntity() . "' does not exists.'");
         }
     }
@@ -47,15 +50,13 @@ class SQLUpdate extends UpdateBase implements Buildable {
     }
 
     /**
-     * Retorna apenas os valores que pertencem a tabela.
+     * Return only the values that exists on table
      *
-     * @return array [[Col => Novo valor] .. ]
+     * @return array [[Col => New Value] .. ]
      */
     public function getTableValues() {
-        $cols = $this->pserv->getColsOfTable($this->getEntity());
-
+        $cols = $this->persistence->getColsOfTable($this->getEntity());
         $values = [];
-
         foreach ($this->getValues() as $col => $val) {
             if (in_array($col, $cols)) {
                 $values[$col] = $val;
@@ -67,13 +68,11 @@ class SQLUpdate extends UpdateBase implements Buildable {
 
     public function execute() {
         $values = $this->getTableValues();
-
         if (empty($values)) {
-            throw new SQLException("None value to be updated.");
+            throw new SQLException("There are no values to be updated.");
         }
-
         $sql = $this->build(new SQLConverter());
 
-        return $this->pserv->exec($sql, array_merge($values, $this->getParams()));
+        return $this->persistence->exec($sql, array_merge($values, $this->getParams()));
     }
 }

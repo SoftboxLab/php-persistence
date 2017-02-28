@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 26/02/17
- * Time: 15:44
- */
 
 namespace Softbox\Persistence\Core;
 
@@ -13,34 +7,34 @@ use Softbox\Persistence\Core\Command\Queryable;
 use Softbox\Persistence\Core\Command\Updatable;
 
 /**
- * Interface que representa os comandos possiveis para um repositorio.
+ * Interface that represents the repository available commands
  *
  * @package Softbox\Persistence\Core
  */
 interface Repository {
 
     /**
-     * Retorna um comando de consulta para a entidade fornecida.
+     * Returns a search command to the given entity
      *
-     * @param string $entity Nome da entidade que sera consultada.
+     * @param string $entity name of the entity to be searched
      *
      * @return Queryable
      */
     public function query($entity);
 
     /**
-     * Retorna um comando de insert para a entidade fornecida.
+     * Returns an insert command to the given entity
      *
-     * @param $entity Nome da entidade o qual o registro sera inserido.
+     * @param string $entity name of the entity to be inserted
      *
      * @return Insertable
      */
     public function insert($entity);
 
     /**
-     * Retorna um comando de update para a entidade fornecida.
+     * Returns an update command to the given entity
      *
-     * @param $entity Nome da entidade o qual o registro sera inserido.
+     * @param string $entity name of the entity to be updated
      *
      * @return Updatable
      */

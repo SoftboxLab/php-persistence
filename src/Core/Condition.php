@@ -3,7 +3,7 @@
 namespace Softbox\Persistence\Core;
 
 /**
- * Representa uma condicao de restricao qualquer. Exp A oprador Exp B.
+ * Represents a condition of any restriction. Exp A operator Exp B.
  *
  * @package Softbox\Persistence\Core
  */

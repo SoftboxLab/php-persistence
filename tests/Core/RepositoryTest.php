@@ -2,12 +2,13 @@
 
 namespace Softbox\Persistence\Core\Test;
 
+use PHPUnit_Framework_TestCase;
 use Softbox\Persistence\Core\DatabaseRepository;
 use Softbox\Persistence\Core\Projection;
 use Softbox\Persistence\Core\SQL\SQLBuilder;
 use Softbox\Persistence\Core\Filter;
 
-class RepositoryTest extends \PHPUnit_Framework_TestCase {
+class RepositoryTest extends PHPUnit_Framework_TestCase {
 
     public function testQuery() {
     }
