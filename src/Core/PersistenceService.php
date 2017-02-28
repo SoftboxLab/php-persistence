@@ -17,6 +17,10 @@ class PersistenceService {
         return [];
     }
 
+    public function getColsOfTable($tableName) {
+        return array_keys($this->getMetaData($tableName));
+    }
+
     public function getMetaData($table) {
         return [
             "a" => [

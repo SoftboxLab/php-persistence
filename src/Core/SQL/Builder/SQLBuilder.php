@@ -8,6 +8,7 @@ use Softbox\Persistence\Core\Buildable;
 use Softbox\Persistence\Core\Builder;
 use Softbox\Persistence\Core\Condition;
 use Softbox\Persistence\Core\Filter;
+use Softbox\Persistence\Core\Insert;
 use Softbox\Persistence\Core\SQL\Command\Select;
 
 class SQLBuilder implements Builder {
@@ -19,6 +20,7 @@ class SQLBuilder implements Builder {
             Filter::class    => new SQLWhereBuilder($this),
             Condition::class => new SQLConditionBuilder($this),
             Select::class    => new SQLSelectBuilder($this),
+            Insert::class    => new SQLInsertBuilder($this)
         ];
     }
 

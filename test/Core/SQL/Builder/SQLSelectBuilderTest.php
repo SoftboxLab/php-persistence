@@ -44,6 +44,7 @@ class SQLSelectBuilderTest extends \PHPUnit_Framework_TestCase {
 
         return $psMock;
     }
+
     public function testBuilder() {
         $sqlSelectBuilder = new SQLSelectBuilder(new SQLBuilder());
 

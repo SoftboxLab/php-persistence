@@ -29,4 +29,8 @@ class DatabaseRepository implements Repository {
     public function query($entity) {
         return new Select($this->pserv, $entity);
     }
+
+    public function insert($entity) {
+        return new Insert($this->pserv, $entity);
+    }
 }
