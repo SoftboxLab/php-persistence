@@ -38,5 +38,5 @@ interface Repository {
      *
      * @return Updatable
      */
-    public function update($entiy);
+    public function update($entity);
 }
