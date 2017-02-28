@@ -9,12 +9,7 @@ use Softbox\Persistence\Core\Command\Updatable;
  *
  * @package Softbox\Persistence\Core
  */
-abstract class UpdateBase implements Buildable, Updatable {
-
-    /**
-     * @var string Name of the entity that will be updated.
-     */
-    private $entity;
+abstract class UpdateBase extends CommandBase implements Updatable {
 
     /**
      * @var Filter The filter condition
@@ -31,24 +26,11 @@ abstract class UpdateBase implements Buildable, Updatable {
      */
     private $values = [];
 
-    /**
-     * UpdateBase constructor.
-     * @param $entity
-     */
-    public function __construct($entity) {
-        $this->entity = $entity;
-    }
-
     public function setFilter(Filter $filter) {
         $this->filter = $filter;
 
         return $this;
     }
-
-    public function getEntity() {
-        return $this->entity;
-    }
-
     /**
      * @return \Softbox\Persistence\Core\Filter
      */
@@ -58,10 +40,6 @@ abstract class UpdateBase implements Buildable, Updatable {
 
     public function getRowCount() {
         return $this->rowCount;
-    }
-
-    public function getValues() {
-        return $this->values;
     }
 
     public function limit($rowCount) {
@@ -75,16 +53,4 @@ abstract class UpdateBase implements Buildable, Updatable {
 
         return $this;
     }
-
-    public function val($col, $value) {
-        $this->values[$col] = $value;
-
-        return $this;
-    }
-
-    public function build(Converter $builder) {
-        return $builder->convert($this);
-    }
-
-    public abstract function execute();
 }

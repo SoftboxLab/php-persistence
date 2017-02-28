@@ -2,7 +2,6 @@
 
 namespace Softbox\Persistence\Core\SQL\Command;
 
-use Softbox\Persistence\Core\Buildable;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
 use Softbox\Persistence\Core\SQL\PersistenceService;
 use Softbox\Persistence\Core\UpdateBase;
@@ -12,7 +11,7 @@ use Softbox\Persistence\Core\UpdateBase;
  *
  * @package Softbox\Persistence\Core\SQL\Command
  */
-class SQLUpdate extends UpdateBase implements Buildable {
+class SQLUpdate extends UpdateBase {
 
     /**
      * @var PersistenceService
@@ -26,26 +25,11 @@ class SQLUpdate extends UpdateBase implements Buildable {
      * @param $entity
      */
     public function __construct(PersistenceService $persistence, $entity) {
-        parent::__construct($entity);
-        $this->persistence = $persistence;
-        $this->checkTable();
-    }
-
-    /**
-     * Check if the given table exists
-     *
-     * @throws SQLException
-     */
-    private function checkTable() {
-        if (!$this->persistence->existsTable($this->getEntity())) {
-            throw new SQLException("Table '" . $this->getEntity() . "' does not exists.'");
-        }
+        parent::__construct($persistence, $entity);
     }
 
     private function getParams() {
-        /** @var \Softbox\Persistence\Core\Filter $filter */
         $filter = $this->getFilter();
-
         return $filter ? $filter->getParams() : [];
     }
 
