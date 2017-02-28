@@ -18,12 +18,8 @@ abstract class InsertBase implements Buildable {
         $this->entity = $entity;
     }
 
-    public function build(Converter $builder) {
-        return $builder->convert($this);
-    }
-
     /**
-     * @return mixed
+     * @return string
      */
     public function getEntity() {
         return $this->entity;
@@ -37,6 +33,10 @@ abstract class InsertBase implements Buildable {
 
     public function getValues() {
         return $this->values;
+    }
+
+    public function build(Converter $builder) {
+        return $builder->convert($this);
     }
 
     public abstract function execute();
