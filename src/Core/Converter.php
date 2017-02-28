@@ -3,18 +3,18 @@
 namespace Softbox\Persistence\Core;
 
 /**
- * Interface para implentacoes dos conversao de comandos.
+ * Interface to implement the command conversions.
  *
  * @package Softbox\Persistence\Core
  */
 interface Converter {
 
     /**
-     * Realiza a conversao do valor fornecido.
+     * Converts the value given
      *
-     * @param $value Valor a ser convertido.
+     * @param mixed $value Value to be converted
      *
-     * @return mixed Valor convertido.
+     * @return mixed the value converted.
      */
     public function convert($value);
 }
