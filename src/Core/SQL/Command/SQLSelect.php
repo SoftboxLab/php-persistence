@@ -39,15 +39,6 @@ class SQLSelect extends Projection implements Buildable {
         }
     }
 
-    /**
-     * @return ResultSet
-     */
-    public function execute() {
-        $sql = $this->build(new SQLConverter());
-
-        return $this->pserv->query($sql, $this->getParams());
-    }
-
     private function getParams() {
         /** @var Filter $filter */
         $filter = $this->getFilter();
@@ -91,5 +82,14 @@ class SQLSelect extends Projection implements Buildable {
         }
 
         return parent::order(...$orders);
+    }
+
+    /**
+     * @return ResultSet
+     */
+    public function execute() {
+        $sql = $this->build(new SQLConverter());
+
+        return $this->pserv->query($sql, $this->getParams());
     }
 }

@@ -38,6 +38,13 @@ class SQLUpdate extends UpdateBase implements Buildable {
         }
     }
 
+    private function getParams() {
+        /** @var Filter $filter */
+        $filter = $this->getFilter();
+
+        return $filter ? $filter->getParams() : [];
+    }
+
     /**
      * Retorna apenas os valores que pertencem a tabela.
      *
@@ -58,5 +65,14 @@ class SQLUpdate extends UpdateBase implements Buildable {
     }
 
     public function execute() {
+        $values = $this->getTableValues();
+
+        if (empty($values)) {
+            throw new SQLException("None value to be updated.");
+        }
+
+        $sql = $this->build(new SQLConverter());
+
+        return $this->pserv->exec($sql, array_merge($values, $this->getParams()));
     }
 }
