@@ -2,45 +2,47 @@
 
 namespace Softbox\Persistence\Core\Command;
 
+use Softbox\Persistence\Core\Filter;
+
 /**
- * Interface que representa um comando de atulizacao de registros.
+ * Interface that represents an update command
  *
  * @package Softbox\Persistence\Core
  */
 interface Updatable {
 
     /**
-     * Configutra a quantidade maxima de registros a serem afetados pelo comando.
+     * Configure the max number of rows that will be affected
      *
-     * @param $rowCount Numero maximo de registros a serem atualizadas.
+     * @param int $rowCount the max number of rows that will be updated
      *
      * @return Updatable
      */
     public function limit($rowCount);
 
     /**
-     * Condicao de filtro a ser aplicado na atualizacao.
+     * Define the filter that will be applied
      *
-     * @param $filter Filtro.
+     * @param Filter $filter filter that will be applied
      *
      * @return Updatable
      */
     public function filter(Filter $filter);
 
     /**
-     * Configura o novo valor da coluna para atualizacao.
+     * Configure the new value for the column given
      *
-     * @param string $col Nome da coluna do registro que sera atualizado.
-     * @param $value Novo valor.
+     * @param string $col the name of column that will be updated
+     * @param mixed $value the new value
      *
      * @return Updatable
      */
     public function val($col, $value);
 
     /**
-     * Realiza a execucao do comando.
+     * Execute the command
      *
-     * @return int Total de registros afetados.
+     * @return int number of affected rows
      */
     public function execute();
 }

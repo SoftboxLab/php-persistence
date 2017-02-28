@@ -3,7 +3,7 @@
 namespace Softbox\Persistence\Core\Command;
 
 /**
- * Interface que representa um comando de consulta no repositorio.
+ * Interface that represents a sql command on repository.
  *
  * @package Softbox\Persistence\Core
  */
