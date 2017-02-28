@@ -3,10 +3,11 @@
 namespace Softbox\Persistence\Core\SQL\Command\Test;
 
 use Softbox\Persistence\Core\Filter;
-use Softbox\Persistence\Core\PersistenceService;
 use Softbox\Persistence\Core\ResultSet;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
+use Softbox\Persistence\Core\SQL\Command\SQLException;
 use Softbox\Persistence\Core\SQL\Command\SQLSelect;
+use Softbox\Persistence\Core\SQL\PersistenceService;
 
 class SelectTest extends \PHPUnit_Framework_TestCase {
 
@@ -44,7 +45,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
         $select = new SQLSelect($psMock, 'teste');
 
         $this->assertEquals("teste", $select->getEntity());
-        $this->expectException(\BadMethodCallException::class);
+        $this->expectException(SQLException::class);
 
         new SQLSelect($psMock, 'teste_abc');
     }
@@ -54,7 +55,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertEquals($select, $select->projection("a", "b", "c"));
         $this->assertCount(3, $select->getCols());
-        $this->expectException(\BadMethodCallException::class);
+        $this->expectException(SQLException::class);
         $select->projection("d");
     }
 

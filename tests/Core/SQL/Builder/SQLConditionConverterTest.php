@@ -28,6 +28,6 @@ class SQLConditionConverterTest extends PHPUnit_Framework_TestCase {
 
         $this->assertEquals("a > b OR e = f", $sqlCondBuilder->convert($cond));
 
-        echo $sqlCondBuilder->convert($cond);
+        //echo $sqlCondBuilder->convert($cond);
     }
 }

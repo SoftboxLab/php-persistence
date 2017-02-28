@@ -3,12 +3,13 @@
 namespace Softbox\Persistence\Core\SQL\Builder\Test;
 
 use Softbox\Persistence\Core\Filter;
-use Softbox\Persistence\Core\PersistenceService;
 use Softbox\Persistence\Core\ResultSet;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverterException;
 use Softbox\Persistence\Core\SQL\Builder\SQLSelectConverter;
+use Softbox\Persistence\Core\SQL\Command\SQLException;
 use Softbox\Persistence\Core\SQL\Command\SQLSelect;
+use Softbox\Persistence\Core\SQL\PersistenceService;
 
 class SQLSelectConverterTest extends \PHPUnit_Framework_TestCase {
 
@@ -40,7 +41,7 @@ class SQLSelectConverterTest extends \PHPUnit_Framework_TestCase {
         return $psMock;
     }
 
-    public function testBuilder() {
+    public function testConverter() {
         $sqlSelectBuilder = new SQLSelectConverter(new SQLConverter());
 
         $select = new SQLSelect($this->getPS(), "teste");
@@ -73,13 +74,11 @@ class SQLSelectConverterTest extends \PHPUnit_Framework_TestCase {
         $select->order("c desc");
         $this->assertEquals("SELECT a, b FROM teste ORDER BY c DESC", $select->build(new SQLConverter()));
 
-        $this->expectException(SQLConverterException::class);
+        $this->expectException(SQLException::class);
         $select->order("d desc");
     }
 
     public function testParams() {
-        $sqlSelectBuilder = new SQLSelectConverter(new SQLConverter());
-
         $select = new SQLSelect($this->getPS(), "teste");
         $select->projection("a");
 
