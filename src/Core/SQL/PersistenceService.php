@@ -4,6 +4,9 @@ namespace Softbox\Persistence\Core\SQL;
 
 class PersistenceService {
 
+    /**
+     * PersistenceService constructor.
+     */
     public function __construct() {
     }
 
@@ -35,7 +38,7 @@ class PersistenceService {
     }
 
     public function existsTable($tableName) {
-        return $tableName == 'teste';
+        return $tableName === 'teste';
     }
 
     public function exec($sql, $values = []) {

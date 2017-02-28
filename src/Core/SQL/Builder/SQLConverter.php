@@ -10,19 +10,22 @@ use Softbox\Persistence\Core\InsertBase;
 use Softbox\Persistence\Core\SQL\Command\SQLSelect;
 
 /**
- * Construtor base de comandos SQL, responsavel por identificar e delega a construcao do componente SQL correto.
+ * Class used to identify and delegate the building of SQL correct
  *
  * @package Softbox\Persistence\Core\SQL\Builder
  */
 class SQLConverter implements Converter {
 
     /**
-     * Construtores de comando SQL.
+     * Builders of the SQL command.
      *
      * @var Converter[]
      */
     private $converters = [];
 
+    /**
+     * SQLConverter constructor.
+     */
     public function __construct() {
         $this->converters = [
             Filter::class     => new SQLWhereConverter($this),
@@ -33,11 +36,11 @@ class SQLConverter implements Converter {
     }
 
     /**
-     * Realiza o processo de build do comando SQL para o valor fornecido.
+     * Build the SQL command for the given value
      *
-     * @param mixed $value
+     * @param mixed $value the value that will be converted
      *
-     * @return string O valor fornecido em um representacao em SQL.
+     * @return string correspondent SQL to the given value
      */
     public function convert($value) {
         if ($value === null) {
@@ -46,7 +49,6 @@ class SQLConverter implements Converter {
 
         if ($value instanceof Buildable) {
             $className = get_class($value);
-
             if (isset($this->converters[$className])) {
                 return $this->converters[$className]->convert($value);
             }

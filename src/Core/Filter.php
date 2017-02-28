@@ -4,32 +4,37 @@
 namespace Softbox\Persistence\Core;
 
 class Filter implements Buildable {
+
+    /**
+     * @var array
+     */
     private $params = [];
 
     /**
      * @var Predicate
      */
     private $predicate = null;
-    
+
+    /**
+     * @var string
+     */
     private $method = "setAnd";
 
+    /**
+     * Filter constructor.
+     */
     public function __construct() {
     }
 
     private function add($col, $op, $value = null) {
         $param = "p_" . count($this->params);
-
         $this->params[$param] = $value;
-
-        // TODO avaliar o ':' quando for NoSQL
+        // TODO check the ':' with NoSQL
         $condition = new Condition($col, $op, $value === null ?  null : ":" . $param);
-
         if ($this->predicate != null) {
             $method = $this->method;
-
             $condition->$method($this->predicate);
         }
-
         $this->predicate = $condition;
     }
 
