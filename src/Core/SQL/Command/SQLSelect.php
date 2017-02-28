@@ -4,10 +4,10 @@ namespace Softbox\Persistence\Core\SQL\Command;
 
 use Softbox\Persistence\Core\Buildable;
 use Softbox\Persistence\Core\Filter;
-use Softbox\Persistence\Core\PersistenceService;
 use Softbox\Persistence\Core\Projection;
 use Softbox\Persistence\Core\ResultSet;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
+use Softbox\Persistence\Core\SQL\PersistenceService;
 
 /**
  * Classe que representa o comando SQL de SELECT.
@@ -90,6 +90,6 @@ class SQLSelect extends Projection implements Buildable {
     public function execute() {
         $sql = $this->build(new SQLConverter());
 
-        return $this->pserv->query($sql, $this->getParams());
+        return new ResultSet($this->pserv->query($sql, $this->getParams()));
     }
 }

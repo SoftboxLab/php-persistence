@@ -2,6 +2,8 @@
 
 namespace Softbox\Persistence\Core;
 
+use Softbox\Persistence\Core\Command\Updatable;
+
 /**
  * Classe base para o compando de update de dados.
  *
@@ -47,6 +49,9 @@ abstract class UpdateBase implements Buildable, Updatable {
         return $this->entity;
     }
 
+    /**
+     * @return \Softbox\Persistence\Core\Filter
+     */
     public function getFilter() {
         return $this->filter;
     }

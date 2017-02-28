@@ -12,7 +12,7 @@ interface Converter {
     /**
      * Realiza a conversao do valor fornecido.
      *
-     * @param $value Valor a ser convertido.
+     * @param mixed $value Valor a ser convertido.
      *
      * @return mixed Valor convertido.
      */

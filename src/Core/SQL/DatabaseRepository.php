@@ -2,8 +2,9 @@
 
 namespace Softbox\Persistence\Core\SQL;
 
-
+use Softbox\Persistence\Core\Repository;
 use Softbox\Persistence\Core\SQL\Command\SQLInsert;
+use Softbox\Persistence\Core\SQL\Command\SQLSelect;
 use Softbox\Persistence\Core\SQL\Command\SQLUpdate;
 
 /**
@@ -36,7 +37,7 @@ class DatabaseRepository implements Repository {
     /**
      * Retorna um comando de SQL INSERT para a entidade fornecida.
      *
-     * @param $entity Nome da tabela o qual o registro sera inserido.
+     * @param string $entity Nome da tabela o qual o registro sera inserido.
      *
      * @return SQLInsert
      */
@@ -47,7 +48,7 @@ class DatabaseRepository implements Repository {
     /**
      * Retorna um comando de SQL UPDATE.
      *
-     * @param $entiy Nome da tabela.
+     * @param string $entiy Nome da tabela.
      *
      * @return SQLUpdate
      */

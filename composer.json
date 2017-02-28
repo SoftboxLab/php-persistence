@@ -9,7 +9,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Softbox\\Persistence\\": "src"
+            "Softbox\\Persistence\\": "src/"
         }
     },
     "require": {},

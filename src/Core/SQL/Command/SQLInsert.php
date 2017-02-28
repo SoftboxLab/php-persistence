@@ -1,23 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 27/02/17
- * Time: 20:40
- */
 
 namespace Softbox\Persistence\Core\SQL\Command;
 
 use Softbox\Persistence\Core\Buildable;
-use Softbox\Persistence\Core\PersistenceService;
+use Softbox\Persistence\Core\InsertBase;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
+use Softbox\Persistence\Core\SQL\PersistenceService;
 
 /**
  * Classe que representa o comando SQL de INSERT.
  *
  * @package Softbox\Persistence\Core\SQL\Command
  */
-class SQLInsert extends \Softbox\Persistence\Core\InsertBase implements Buildable {
+class SQLInsert extends InsertBase implements Buildable {
 
     /**
      * Servico de persistencia do banco de dados.

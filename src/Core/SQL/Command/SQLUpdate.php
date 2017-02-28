@@ -3,7 +3,8 @@
 namespace Softbox\Persistence\Core\SQL\Command;
 
 use Softbox\Persistence\Core\Buildable;
-use Softbox\Persistence\Core\PersistenceService;
+use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
+use Softbox\Persistence\Core\SQL\PersistenceService;
 use Softbox\Persistence\Core\UpdateBase;
 
 /**
@@ -39,7 +40,7 @@ class SQLUpdate extends UpdateBase implements Buildable {
     }
 
     private function getParams() {
-        /** @var Filter $filter */
+        /** @var \Softbox\Persistence\Core\Filter $filter */
         $filter = $this->getFilter();
 
         return $filter ? $filter->getParams() : [];
