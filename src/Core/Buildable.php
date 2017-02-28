@@ -3,7 +3,7 @@
 namespace Softbox\Persistence\Core;
 
 /**
- * Interface que sinaliza que o objeto pode ser convertido.
+ * Interface that shows that the object can be converted.
  *
  * @package Softbox\Persistence\Core
  */
