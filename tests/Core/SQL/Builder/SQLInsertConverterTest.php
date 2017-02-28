@@ -1,18 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 27/02/17
- * Time: 21:44
- */
 
 namespace Softbox\Persistence\Core\SQL\Builder\Test;
 
-use Softbox\Persistence\Core\PersistenceService;
+use Softbox\Persistence\Core\SQL\PersistenceService;
 use Softbox\Persistence\Core\ResultSet;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
 use Softbox\Persistence\Core\SQL\Builder\SQLInsertConverter;
-use Softbox\Persistence\Core\SQL\Command\InsertBase;
+use Softbox\Persistence\Core\InsertBase;
 
 class SQLInsertConverterTest extends \PHPUnit_Framework_TestCase {
     private function getPS() {

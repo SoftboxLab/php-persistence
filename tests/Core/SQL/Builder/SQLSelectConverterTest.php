@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 27/02/17
- * Time: 19:46
- */
 
 namespace Softbox\Persistence\Core\SQL\Builder\Test;
 

@@ -1,18 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 27/02/17
- * Time: 19:35
- */
 
 namespace Softbox\Persistence\Core\SQL\Builder\Test;
 
+use PHPUnit_Framework_TestCase;
 use Softbox\Persistence\Core\Condition;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
 use Softbox\Persistence\Core\SQL\Builder\SQLConditionConverter;
 
-class SQLConditionConverterTest extends \PHPUnit_Framework_TestCase {
+class SQLConditionConverterTest extends PHPUnit_Framework_TestCase {
     public function testConvert() {
         $sqlCondBuilder = new SQLConditionConverter(new SQLConverter());
 
