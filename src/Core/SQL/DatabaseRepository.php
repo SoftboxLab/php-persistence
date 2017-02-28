@@ -1,6 +1,6 @@
 <?php
 
-namespace Softbox\Persistence\Core;
+namespace Softbox\Persistence\Core\SQL;
 
 
 use Softbox\Persistence\Core\SQL\Command\SQLInsert;

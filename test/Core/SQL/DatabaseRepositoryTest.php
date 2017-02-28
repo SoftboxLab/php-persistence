@@ -1,10 +1,10 @@
 <?php
 
-namespace Softbox\Persistence\Core\Test;
+namespace Softbox\Persistence\Core\SQL\Test;
 
-use Softbox\Persistence\Core\DatabaseRepository;
 use Softbox\Persistence\Core\Filter;
 use Softbox\Persistence\Core\Projection;
+use Softbox\Persistence\Core\SQL\DatabaseRepository;
 
 class DatabaseRepositoryTest extends \PHPUnit_Framework_TestCase {
 

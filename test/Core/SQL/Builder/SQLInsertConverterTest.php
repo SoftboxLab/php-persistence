@@ -14,7 +14,7 @@ use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
 use Softbox\Persistence\Core\SQL\Builder\SQLInsertConverter;
 use Softbox\Persistence\Core\SQL\Command\InsertBase;
 
-class SQLInsertBuilderTest extends \PHPUnit_Framework_TestCase {
+class SQLInsertConverterTest extends \PHPUnit_Framework_TestCase {
     private function getPS() {
         $psMock = $this->getMockBuilder(PersistenceService::class)->getMock();
 

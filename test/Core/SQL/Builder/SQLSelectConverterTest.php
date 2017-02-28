@@ -16,7 +16,7 @@ use Softbox\Persistence\Core\SQL\Builder\SQLConverterException;
 use Softbox\Persistence\Core\SQL\Builder\SQLSelectConverter;
 use Softbox\Persistence\Core\SQL\Command\SQLSelect;
 
-class SQLSelectBuilderTest extends \PHPUnit_Framework_TestCase {
+class SQLSelectConverterTest extends \PHPUnit_Framework_TestCase {
 
     private function getPS() {
         $psMock = $this->getMockBuilder(PersistenceService::class)->getMock();

@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tarcisio
- * Date: 26/02/17
- * Time: 10:41
- */
 
-namespace Softbox\Persistence\Core;
+namespace Softbox\Persistence\Core\SQL;
 
 class PersistenceService {
 

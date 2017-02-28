@@ -12,8 +12,8 @@ use Softbox\Persistence\Core\Condition;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
 use Softbox\Persistence\Core\SQL\Builder\SQLConditionConverter;
 
-class SQLConditionBuilderTest extends \PHPUnit_Framework_TestCase {
-    public function testBuild() {
+class SQLConditionConverterTest extends \PHPUnit_Framework_TestCase {
+    public function testConvert() {
         $sqlCondBuilder = new SQLConditionConverter(new SQLConverter());
 
         $cond = new Condition("a", ">", "b");
