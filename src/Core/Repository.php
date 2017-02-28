@@ -3,6 +3,7 @@
 namespace Softbox\Persistence\Core;
 
 use Softbox\Persistence\Core\Command\Insertable;
+use Softbox\Persistence\Core\Command\NamedQuery;
 use Softbox\Persistence\Core\Command\Queryable;
 use Softbox\Persistence\Core\Command\Updatable;
 
@@ -21,6 +22,13 @@ interface Repository {
      * @return Queryable
      */
     public function query($entity);
+
+    /**
+     * @param $name
+     *
+     * @return NamedQuery
+     */
+    public function namedQuery($name);
 
     /**
      * Returns an insert command to the given entity

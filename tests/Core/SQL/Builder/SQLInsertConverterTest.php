@@ -4,7 +4,7 @@ namespace Softbox\Persistence\Core\SQL\Builder\Test;
 
 use Softbox\Persistence\Core\SQL\Command\SQLInsert;
 use Softbox\Persistence\Core\SQL\PersistenceService;
-use Softbox\Persistence\Core\ResultSet;
+use Softbox\Persistence\Core\ResultSetBase;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
 use Softbox\Persistence\Core\SQL\Builder\SQLInsertConverter;
 
@@ -12,7 +12,7 @@ class SQLInsertConverterTest extends \PHPUnit_Framework_TestCase {
     private function getPS() {
         $psMock = $this->getMockBuilder(PersistenceService::class)->getMock();
 
-        $psMock->method('query')->willReturn(new ResultSet());
+        $psMock->method('query')->willReturn(new ResultSetBase());
         $psMock->method('getColsOfTable')->willReturn(["a", "b", "c"]);
         $psMock->method('getMetaData')->willReturn([
             "a" => [

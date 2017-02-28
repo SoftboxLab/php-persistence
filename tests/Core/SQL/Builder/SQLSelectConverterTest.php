@@ -3,7 +3,7 @@
 namespace Softbox\Persistence\Core\SQL\Builder\Test;
 
 use Softbox\Persistence\Core\Filter;
-use Softbox\Persistence\Core\ResultSet;
+use Softbox\Persistence\Core\ResultSetBase;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverterException;
 use Softbox\Persistence\Core\SQL\Builder\SQLSelectConverter;
@@ -16,7 +16,7 @@ class SQLSelectConverterTest extends \PHPUnit_Framework_TestCase {
     private function getPS() {
         $psMock = $this->getMockBuilder(PersistenceService::class)->getMock();
 
-        $psMock->method('query')->willReturn(new ResultSet());
+        $psMock->method('query')->willReturn(new ResultSetBase());
         $psMock->method('getMetaData')->willReturn([
             "a" => [
                 "size" => 10,

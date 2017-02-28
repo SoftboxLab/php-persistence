@@ -37,6 +37,10 @@ class DatabaseRepository implements Repository {
         return new SQLSelect($this->persistence, $entity);
     }
 
+    public function namedQuery($name) {
+
+    }
+
     /**
      * Returns a SQL INSERT command
      *
