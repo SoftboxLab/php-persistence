@@ -13,21 +13,6 @@ use Softbox\Persistence\Core\UpdateBase;
  */
 class SQLUpdate extends UpdateBase {
 
-    /**
-     * @var PersistenceService
-     */
-    private $persistence;
-
-    /**
-     * SQLUpdate constructor.
-     *
-     * @param PersistenceService $persistence
-     * @param $entity
-     */
-    public function __construct(PersistenceService $persistence, $entity) {
-        parent::__construct($persistence, $entity);
-    }
-
     private function getParams() {
         $filter = $this->getFilter();
         return $filter ? $filter->getParams() : [];

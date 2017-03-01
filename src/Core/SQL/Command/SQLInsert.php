@@ -14,16 +14,6 @@ use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
 class SQLInsert extends InsertBase {
 
     /**
-     * SQLInsert constructor.
-     *
-     * @param PersistenceService $persistence
-     * @param $entity
-     */
-    public function __construct(PersistenceService $persistence, $entity) {
-        parent::__construct($persistence, $entity);
-    }
-
-    /**
      * Returns an array with the possible values to be inserted
      *
      * @return array [[Key => Value] ...]
