@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - '5.6'
+
+before_install:
+#  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+#  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
+install: composer install
+
+before_script:
+  - mkdir -p build/logs
+
+script:
+  - phpunit --coverage-clover build/logs/clover.xml
+
+after_success:
+  - php vendor/bin/coveralls -v
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - mv build/logs/clover.xml build/logs/coverage.clover
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/coverage.clover
