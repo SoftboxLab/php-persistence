@@ -3,6 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/SoftboxLab/php-persistence/badge.svg?branch=master)](https://coveralls.io/github/SoftboxLab/php-persistence?branch=master)
 [![StyleCI](https://styleci.io/repos/83156250/shield?branch=master)](https://styleci.io/repos/83156250)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://raw.githubusercontent.com/SoftboxLab/php-persistence/master/LICENSE)
+
 Minimalistic persistence API
 
 ##Prerequisites
