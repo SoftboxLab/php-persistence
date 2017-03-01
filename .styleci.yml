@@ -1,0 +1,19 @@
+preset: recommended
+
+risky: false
+
+enabled:
+  - concat_with_spaces
+  - short_array_syntax
+  - align_equals
+  - align_double_arrow
+  - standardize_not_equals
+
+disabled:
+  - concat_without_spaces
+  - elseif
+  - length_ordered_imports
+  - long_array_syntax
+  - unalign_equals
+  - single_quote
+  - simplified_null_return
