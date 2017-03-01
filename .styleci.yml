@@ -5,8 +5,10 @@ risky: false
 enabled:
   - concat_with_spaces
   - align_equals
+  - single_line_class_definition
 
 disabled:
   - concat_without_spaces
   - elseif
   - unalign_equals
+  - single_quote
