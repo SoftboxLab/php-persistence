@@ -4,11 +4,9 @@ namespace Softbox\Persistence\Core;
 
 /**
  * Represents a condition of any restriction. Exp A operator Exp B.
- *
- * @package Softbox\Persistence\Core
  */
-class Condition implements Predicate {
-
+class Condition implements Predicate
+{
     /**
      * @var mixed
      */
@@ -34,41 +32,50 @@ class Condition implements Predicate {
      */
     private $predicateOr;
 
-    public function __construct($expA, $operator, $expB) {
+    public function __construct($expA, $operator, $expB)
+    {
         $this->expressionA = $expA;
         $this->operator    = $operator;
         $this->expressionB = $expB;
     }
 
-    public function getExpressionA() {
+    public function getExpressionA()
+    {
         return $this->expressionA;
     }
 
-    public function getOperator() {
+    public function getOperator()
+    {
         return $this->operator;
     }
 
-    public function getExpressionB() {
+    public function getExpressionB()
+    {
         return $this->expressionB;
     }
 
-    public function setAnd(Predicate $predicate) {
+    public function setAnd(Predicate $predicate)
+    {
         $this->predicateAnd = $predicate;
     }
 
-    public function setOr(Predicate $predicate) {
+    public function setOr(Predicate $predicate)
+    {
         $this->predicateOr = $predicate;
     }
 
-    public function getAnd() {
+    public function getAnd()
+    {
         return $this->predicateAnd;
     }
 
-    public function getOr() {
+    public function getOr()
+    {
         return $this->predicateOr;
     }
 
-    public function build(Converter $builder) {
+    public function build(Converter $builder)
+    {
         return $builder->convert($this);
     }
 }

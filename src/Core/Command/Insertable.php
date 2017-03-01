@@ -2,6 +2,6 @@
 
 namespace Softbox\Persistence\Core\Command;
 
-interface Insertable {
-
+interface Insertable
+{
 }

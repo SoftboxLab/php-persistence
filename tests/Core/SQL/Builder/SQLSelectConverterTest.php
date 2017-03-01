@@ -5,43 +5,44 @@ namespace Softbox\Persistence\Core\SQL\Builder\Test;
 use Softbox\Persistence\Core\Filter;
 use Softbox\Persistence\Core\ResultSetBase;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
-use Softbox\Persistence\Core\SQL\Builder\SQLConverterException;
 use Softbox\Persistence\Core\SQL\Builder\SQLSelectConverter;
 use Softbox\Persistence\Core\SQL\Command\SQLException;
 use Softbox\Persistence\Core\SQL\Command\SQLSelect;
 use Softbox\Persistence\Core\SQL\PersistenceService;
 
-class SQLSelectConverterTest extends \PHPUnit_Framework_TestCase {
-
-    private function getPS() {
+class SQLSelectConverterTest extends \PHPUnit_Framework_TestCase
+{
+    private function getPS()
+    {
         $psMock = $this->getMockBuilder(PersistenceService::class)->getMock();
 
         $psMock->method('query')->willReturn(new ResultSetBase());
         $psMock->method('getMetaData')->willReturn([
             "a" => [
                 "size" => 10,
-                "type" => "int"
+                "type" => "int",
             ],
 
             "b" => [
                 "size" => 10,
-                "type" => "varchar"
+                "type" => "varchar",
             ],
 
             "c" => [
                 "size" => 10,
-                "type" => "varchar"
-            ]
+                "type" => "varchar",
+            ],
         ]);
         $psMock->method('existsTable')->willReturnMap([
             ["teste", true],
-            ["teste_abc", false]
+            ["teste_abc", false],
         ]);
 
         return $psMock;
     }
 
-    public function testConverter() {
+    public function testConverter()
+    {
         $sqlSelectBuilder = new SQLSelectConverter(new SQLConverter());
 
         $select = new SQLSelect($this->getPS(), "teste");
@@ -52,7 +53,8 @@ class SQLSelectConverterTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals("SELECT * FROM teste", $sqlSelectBuilder->convert($select->projection()));
     }
 
-    public function testOrderBy() {
+    public function testOrderBy()
+    {
         $sqlSelectBuilder = new SQLSelectConverter(new SQLConverter());
 
         $select = new SQLSelect($this->getPS(), "teste");
@@ -78,7 +80,8 @@ class SQLSelectConverterTest extends \PHPUnit_Framework_TestCase {
         $select->order("d desc");
     }
 
-    public function testParams() {
+    public function testParams()
+    {
         $select = new SQLSelect($this->getPS(), "teste");
         $select->projection("a");
 

@@ -4,13 +4,11 @@ namespace Softbox\Persistence\Core;
 
 /**
  * Interface to implement the command conversions.
- *
- * @package Softbox\Persistence\Core
  */
-interface Converter {
-
+interface Converter
+{
     /**
-     * Converts the value given
+     * Converts the value given.
      *
      * @param mixed $value Value to be converted
      *

@@ -2,6 +2,6 @@
 
 namespace Softbox\Persistence\Core;
 
-interface ResultSet {
-
+interface ResultSet
+{
 }

@@ -5,8 +5,8 @@ namespace Softbox\Persistence\Core\SQL\Builder;
 use Softbox\Persistence\Core\Converter;
 use Softbox\Persistence\Core\Filter;
 
-class SQLWhereConverter implements Converter {
-
+class SQLWhereConverter implements Converter
+{
     /**
      * @var Converter
      */
@@ -17,11 +17,13 @@ class SQLWhereConverter implements Converter {
      *
      * @param Converter $converter
      */
-    public function __construct(Converter $converter) {
+    public function __construct(Converter $converter)
+    {
         $this->converter = $converter;
     }
 
-    public function convert($value) {
+    public function convert($value)
+    {
         if (!($value instanceof Filter)) {
             throw new SQLConverterException("Supply an instance of " . Filter::class . ".");
         }

@@ -4,11 +4,9 @@ namespace Softbox\Persistence\Core\Command;
 
 /**
  * Interface that represents a sql command on repository.
- *
- * @package Softbox\Persistence\Core
  */
-interface Queryable {
-
+interface Queryable
+{
     /**
      * @param array ...$cols
      *

@@ -8,58 +8,60 @@ use Softbox\Persistence\Core\SQL\Command\SQLSelect;
 use Softbox\Persistence\Core\SQL\Command\SQLUpdate;
 
 /**
- * Implements a repository of database access
- *
- * @package Softbox\Persistence\Core
+ * Implements a repository of database access.
  */
-class DatabaseRepository implements Repository {
-
+class DatabaseRepository implements Repository
+{
     /**
      * @var PersistenceService
      */
     private $persistence;
 
     /**
-     * DatabaseRepository constructor
+     * DatabaseRepository constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->persistence = new PersistenceService();
     }
 
     /**
-     * Returns a SQL SELECT command
+     * Returns a SQL SELECT command.
      *
      * @param string $entity the table name
      *
      * @return SQLSelect
      */
-    public function query($entity) {
+    public function query($entity)
+    {
         return new SQLSelect($this->persistence, $entity);
     }
 
-    public function namedQuery($name) {
-
+    public function namedQuery($name)
+    {
     }
 
     /**
-     * Returns a SQL INSERT command
+     * Returns a SQL INSERT command.
      *
      * @param string $entity the table name
      *
      * @return SQLInsert
      */
-    public function insert($entity) {
+    public function insert($entity)
+    {
         return new SQLInsert($this->persistence, $entity);
     }
 
     /**
-     * Returns a SQL UPDATE command
+     * Returns a SQL UPDATE command.
      *
      * @param string $entity the table name
      *
      * @return SQLUpdate
      */
-    public function update($entity) {
+    public function update($entity)
+    {
         return new SQLUpdate($this->persistence, $entity);
     }
 }

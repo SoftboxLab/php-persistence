@@ -5,12 +5,10 @@ namespace Softbox\Persistence\Core;
 use Softbox\Persistence\Core\Command\Updatable;
 
 /**
- * Base class to the update command
- *
- * @package Softbox\Persistence\Core
+ * Base class to the update command.
  */
-abstract class UpdateBase extends CommandBase implements Updatable {
-
+abstract class UpdateBase extends CommandBase implements Updatable
+{
     /**
      * @var Filter The filter condition
      */
@@ -21,29 +19,35 @@ abstract class UpdateBase extends CommandBase implements Updatable {
      */
     private $rowCount = null;
 
-    public function setFilter(Filter $filter) {
+    public function setFilter(Filter $filter)
+    {
         $this->filter = $filter;
 
         return $this;
     }
+
     /**
      * @return \Softbox\Persistence\Core\Filter
      */
-    public function getFilter() {
+    public function getFilter()
+    {
         return $this->filter;
     }
 
-    public function getRowCount() {
+    public function getRowCount()
+    {
         return $this->rowCount;
     }
 
-    public function limit($rowCount) {
+    public function limit($rowCount)
+    {
         $this->rowCount = $rowCount;
 
         return $this;
     }
 
-    public function filter(Filter $filter) {
+    public function filter(Filter $filter)
+    {
         $this->setFilter($filter);
 
         return $this;

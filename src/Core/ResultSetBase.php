@@ -2,6 +2,6 @@
 
 namespace Softbox\Persistence\Core;
 
-class ResultSetBase {
-
+class ResultSetBase
+{
 }

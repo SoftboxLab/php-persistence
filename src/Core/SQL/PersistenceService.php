@@ -2,46 +2,52 @@
 
 namespace Softbox\Persistence\Core\SQL;
 
-class PersistenceService {
-
+class PersistenceService
+{
     /**
      * PersistenceService constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
     }
 
-    public function query($sql, $params = []) {
+    public function query($sql, $params = [])
+    {
         return [];
     }
 
-    public function getColsOfTable($tableName) {
+    public function getColsOfTable($tableName)
+    {
         return array_keys($this->getMetaData($tableName));
     }
 
-    public function getMetaData($table) {
+    public function getMetaData($table)
+    {
         return [
             "a" => [
                 "size" => 10,
-                "type" => "int"
+                "type" => "int",
             ],
 
             "b" => [
                 "size" => 10,
-                "type" => "varchar"
+                "type" => "varchar",
             ],
 
             "c" => [
                 "size" => 10,
-                "type" => "varchar"
-            ]
+                "type" => "varchar",
+            ],
         ];
     }
 
-    public function existsTable($tableName) {
+    public function existsTable($tableName)
+    {
         return $tableName === 'teste';
     }
 
-    public function exec($sql, $values = []) {
+    public function exec($sql, $values = [])
+    {
         return $values;
     }
 }

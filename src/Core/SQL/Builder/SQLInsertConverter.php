@@ -6,8 +6,8 @@ use BadMethodCallException;
 use Softbox\Persistence\Core\Converter;
 use Softbox\Persistence\Core\InsertBase;
 
-class SQLInsertConverter implements Converter {
-
+class SQLInsertConverter implements Converter
+{
     /**
      * @var Converter
      */
@@ -18,17 +18,19 @@ class SQLInsertConverter implements Converter {
      *
      * @param Converter $converter
      */
-    public function __construct(Converter $converter) {
+    public function __construct(Converter $converter)
+    {
         $this->converter = $converter;
     }
 
-    public function convert($value) {
+    public function convert($value)
+    {
         if (!($value instanceof InsertBase)) {
             throw new BadMethodCallException("Supply an instance of " . InsertBase::class . ".");
         }
 
-        $cols = array_keys($value->getTableValues());
-        $params = array_map(function($val) {
+        $cols   = array_keys($value->getTableValues());
+        $params = array_map(function ($val) {
             return ":" . $val;
         }, $cols);
 

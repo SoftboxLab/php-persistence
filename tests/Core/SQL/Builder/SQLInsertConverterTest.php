@@ -2,14 +2,16 @@
 
 namespace Softbox\Persistence\Core\SQL\Builder\Test;
 
-use Softbox\Persistence\Core\SQL\Command\SQLInsert;
-use Softbox\Persistence\Core\SQL\PersistenceService;
 use Softbox\Persistence\Core\ResultSetBase;
 use Softbox\Persistence\Core\SQL\Builder\SQLConverter;
 use Softbox\Persistence\Core\SQL\Builder\SQLInsertConverter;
+use Softbox\Persistence\Core\SQL\Command\SQLInsert;
+use Softbox\Persistence\Core\SQL\PersistenceService;
 
-class SQLInsertConverterTest extends \PHPUnit_Framework_TestCase {
-    private function getPS() {
+class SQLInsertConverterTest extends \PHPUnit_Framework_TestCase
+{
+    private function getPS()
+    {
         $psMock = $this->getMockBuilder(PersistenceService::class)->getMock();
 
         $psMock->method('query')->willReturn(new ResultSetBase());
@@ -17,28 +19,29 @@ class SQLInsertConverterTest extends \PHPUnit_Framework_TestCase {
         $psMock->method('getMetaData')->willReturn([
             "a" => [
                 "size" => 10,
-                "type" => "int"
+                "type" => "int",
             ],
 
             "b" => [
                 "size" => 10,
-                "type" => "varchar"
+                "type" => "varchar",
             ],
 
             "c" => [
                 "size" => 10,
-                "type" => "varchar"
-            ]
+                "type" => "varchar",
+            ],
         ]);
         $psMock->method('existsTable')->willReturnMap([
             ["teste", true],
-            ["teste_abc", false]
+            ["teste_abc", false],
         ]);
 
         return $psMock;
     }
 
-    public function testBuild() {
+    public function testBuild()
+    {
         $sqlBuilder = new SQLInsertConverter(new SQLConverter());
 
         $insert = new SQLInsert($this->getPS(), "teste");

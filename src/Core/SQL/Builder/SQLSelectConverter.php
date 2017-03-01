@@ -5,8 +5,8 @@ namespace Softbox\Persistence\Core\SQL\Builder;
 use Softbox\Persistence\Core\Converter;
 use Softbox\Persistence\Core\Projection;
 
-class SQLSelectConverter implements Converter {
-
+class SQLSelectConverter implements Converter
+{
     /**
      * @var Converter
      */
@@ -17,11 +17,13 @@ class SQLSelectConverter implements Converter {
      *
      * @param Converter $converter
      */
-    public function __construct(Converter $converter) {
+    public function __construct(Converter $converter)
+    {
         $this->converter = $converter;
     }
 
-    private function buildCols(Projection $select) {
+    private function buildCols(Projection $select)
+    {
         $buffer     = "";
         $delimiter  = "";
         foreach ($select->getCols() as $col) {
@@ -32,19 +34,23 @@ class SQLSelectConverter implements Converter {
         return empty($buffer) ? "*" : $buffer;
     }
 
-    private function buildOrderBy(Projection $select) {
+    private function buildOrderBy(Projection $select)
+    {
         return empty($select->getOrderBy()) ? "" : " ORDER BY " . implode(", ", $select->getOrderBy());
     }
 
-    private function buildLimit(Projection $select) {
+    private function buildLimit(Projection $select)
+    {
         return $select->getOffset() === null ? "" : " LIMIT " . $select->getOffset() . ", " . $select->getRowCount();
     }
 
-    private function buildWhere(Projection $select) {
+    private function buildWhere(Projection $select)
+    {
         return $select->getFilter() === null ? "" : $this->converter->convert($select->getFilter());
     }
 
-    public function convert($value) {
+    public function convert($value)
+    {
         if (!($value instanceof Projection)) {
             throw new SQLConverterException("Supply an instance of " . Projection::class . ".");
         }
