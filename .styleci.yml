@@ -12,7 +12,6 @@ enabled:
 disabled:
   - concat_without_spaces
   - elseif
-  - length_ordered_imports
   - long_array_syntax
   - unalign_equals
   - single_quote
