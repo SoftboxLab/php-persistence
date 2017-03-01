@@ -21,11 +21,6 @@ abstract class UpdateBase extends CommandBase implements Updatable {
      */
     private $rowCount = null;
 
-    /**
-     * @var array new values
-     */
-    private $values = [];
-
     public function setFilter(Filter $filter) {
         $this->filter = $filter;
 
