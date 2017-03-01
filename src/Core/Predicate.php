@@ -2,8 +2,8 @@
 
 namespace Softbox\Persistence\Core;
 
-interface Predicate extends Buildable {
-
+interface Predicate extends Buildable
+{
     public function setAnd(Predicate $predicate);
 
     public function setOr(Predicate $predicate);
@@ -11,5 +11,4 @@ interface Predicate extends Buildable {
     public function getAnd();
 
     public function getOr();
-
 }

@@ -9,37 +9,39 @@ use Softbox\Persistence\Core\SQL\Command\SQLException;
 use Softbox\Persistence\Core\SQL\Command\SQLSelect;
 use Softbox\Persistence\Core\SQL\PersistenceService;
 
-class SelectTest extends \PHPUnit_Framework_TestCase {
-
-    private function getPS() {
+class SelectTest extends \PHPUnit_Framework_TestCase
+{
+    private function getPS()
+    {
         $psMock = $this->getMockBuilder(PersistenceService::class)->getMock();
 
         $psMock->method('query')->willReturn(new ResultSetBase());
         $psMock->method('getMetaData')->willReturn([
             "a" => [
                 "size" => 10,
-                "type" => "int"
+                "type" => "int",
             ],
 
             "b" => [
                 "size" => 10,
-                "type" => "varchar"
+                "type" => "varchar",
             ],
 
             "c" => [
                 "size" => 10,
-                "type" => "varchar"
-            ]
+                "type" => "varchar",
+            ],
         ]);
         $psMock->method('existsTable')->willReturnMap([
             ["teste", true],
-            ["teste_abc", false]
+            ["teste_abc", false],
         ]);
 
         return $psMock;
     }
 
-    public function testConstrutor() {
+    public function testConstrutor()
+    {
         $psMock = $this->getPS();
 
         $select = new SQLSelect($psMock, 'teste');
@@ -50,7 +52,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
         new SQLSelect($psMock, 'teste_abc');
     }
 
-    public function testProjection() {
+    public function testProjection()
+    {
         $select = new SQLSelect($this->getPS(), 'teste');
 
         $this->assertEquals($select, $select->projection("a", "b", "c"));
@@ -59,7 +62,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
         $select->projection("d");
     }
 
-    public function testLimit() {
+    public function testLimit()
+    {
         $select = new SQLSelect($this->getPS(), 'teste');
 
         $this->assertEquals($select, $select->projection("a", "b", "c"));
@@ -68,14 +72,16 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(200, $select->getRowCount());
     }
 
-    public function testBuild() {
+    public function testBuild()
+    {
         $select = new SQLSelect($this->getPS(), 'teste');
 
         $select->projection("a", "b");
         $this->assertEquals("SELECT a, b FROM teste", $select->build(new SQLConverter()));
     }
 
-    public function testGetParams() {
+    public function testGetParams()
+    {
         $select = new SQLSelect($this->getPS(), 'teste');
 
         $select->projection("a", "b");

@@ -2,16 +2,14 @@
 
 namespace Softbox\Persistence\Core\SQL\Builder;
 
-use Softbox\Persistence\Core\Converter;
 use Softbox\Persistence\Core\Condition;
+use Softbox\Persistence\Core\Converter;
 
 /**
- * Class used to create conditions that will be used on WHERE
- *
- * @package Softbox\Persistence\Core\SQL\Builder
+ * Class used to create conditions that will be used on WHERE.
  */
-class SQLConditionConverter implements Converter {
-
+class SQLConditionConverter implements Converter
+{
     /**
      * @var Converter
      */
@@ -22,11 +20,13 @@ class SQLConditionConverter implements Converter {
      *
      * @param Converter $converter
      */
-    public function __construct(Converter $converter) {
+    public function __construct(Converter $converter)
+    {
         $this->converter = $converter;
     }
 
-    public function convert($value) {
+    public function convert($value)
+    {
         if (!($value instanceof Condition)) {
             throw new SQLConverterException("Supply an instance of " . Condition::class . ".");
         }

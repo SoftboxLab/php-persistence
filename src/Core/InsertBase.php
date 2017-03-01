@@ -2,5 +2,6 @@
 
 namespace Softbox\Persistence\Core;
 
-abstract class InsertBase extends CommandBase {
+abstract class InsertBase extends CommandBase
+{
 }

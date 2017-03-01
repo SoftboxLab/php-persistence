@@ -4,8 +4,8 @@ namespace Softbox\Persistence\Core;
 
 use Softbox\Persistence\Core\Command\Queryable;
 
-abstract class Projection implements Buildable, Queryable {
-
+abstract class Projection implements Buildable, Queryable
+{
     private $cols;
 
     private $entity;
@@ -18,25 +18,29 @@ abstract class Projection implements Buildable, Queryable {
 
     private $rowCount = null;
 
-    public function __construct($entity, $cols = null) {
-        $this->cols = $cols;
+    public function __construct($entity, $cols = null)
+    {
+        $this->cols   = $cols;
         $this->entity = $entity;
     }
 
-    public function setFilter(Filter $filter) {
+    public function setFilter(Filter $filter)
+    {
         $this->filter = $filter;
 
         return $this;
     }
 
-    public function setOrderBy($order) {
+    public function setOrderBy($order)
+    {
         $this->orderBy = $order;
 
         return $this;
     }
 
-    public function limit($offset, $rowCount) {
-        $this->offset = $offset;
+    public function limit($offset, $rowCount)
+    {
+        $this->offset   = $offset;
         $this->rowCount = $rowCount;
 
         return $this;
@@ -45,46 +49,53 @@ abstract class Projection implements Buildable, Queryable {
     /**
      * @return null
      */
-    public function getCols() {
+    public function getCols()
+    {
         return $this->cols;
     }
 
     /**
      * @return mixed
      */
-    public function getEntity() {
+    public function getEntity()
+    {
         return $this->entity;
     }
 
     /**
      * @return null
      */
-    public function getFilter() {
+    public function getFilter()
+    {
         return $this->filter;
     }
 
     /**
      * @return null
      */
-    public function getOrderBy() {
+    public function getOrderBy()
+    {
         return $this->orderBy;
     }
 
     /**
      * @return null
      */
-    public function getOffset() {
+    public function getOffset()
+    {
         return $this->offset;
     }
 
     /**
      * @return null
      */
-    public function getRowCount() {
+    public function getRowCount()
+    {
         return $this->rowCount;
     }
 
-    public function build(Converter $builder) {
+    public function build(Converter $builder)
+    {
         return $builder->convert($this);
     }
 
@@ -93,7 +104,8 @@ abstract class Projection implements Buildable, Queryable {
      *
      * @return Queryable
      */
-    public function projection(...$cols) {
+    public function projection(...$cols)
+    {
         $this->cols = $cols;
 
         return $this;
@@ -104,7 +116,8 @@ abstract class Projection implements Buildable, Queryable {
      *
      * @return Queryable
      */
-    public function filter($filter) {
+    public function filter($filter)
+    {
         $this->setFilter($filter);
 
         return $this;
@@ -115,7 +128,8 @@ abstract class Projection implements Buildable, Queryable {
      *
      * @return Queryable
      */
-    public function order(...$orders) {
+    public function order(...$orders)
+    {
         $this->setOrderBy($orders);
 
         return $this;
@@ -124,5 +138,5 @@ abstract class Projection implements Buildable, Queryable {
     /**
      * @return Queryable
      */
-    public abstract function execute();
+    abstract public function execute();
 }

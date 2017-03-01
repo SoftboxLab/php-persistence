@@ -2,8 +2,8 @@
 
 namespace Softbox\Persistence\Core\Command;
 
-interface NamedQuery {
-
+interface NamedQuery
+{
     /**
      * @param $paramName
      * @param $value

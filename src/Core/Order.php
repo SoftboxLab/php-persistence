@@ -2,7 +2,8 @@
 
 namespace Softbox\Persistence\Core;
 
-class Order {
+class Order
+{
     const ASC  = "ASC";
     const DESC = "DESC";
 
@@ -14,26 +15,31 @@ class Order {
     /**
      * Order constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
     }
 
-    public final function asc($col) {
+    final public function asc($col)
+    {
         $this->orders[] = $col . " " . static::ASC;
 
         return $this;
     }
 
-    public final function desc($col) {
+    final public function desc($col)
+    {
         $this->orders[] = $col . " " . static::DESC;
 
         return $this;
     }
 
-    public final function arr() {
+    final public function arr()
+    {
         return $this->orders;
     }
 
-    public static final function create() {
-        return new Order();
+    final public static function create()
+    {
+        return new self();
     }
 }
